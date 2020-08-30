@@ -30,6 +30,7 @@ try:
     # Prepare driver
     options = Options()
     options.headless = True
+    options.add_argument("--log-level=3")
     driver = webdriver.Chrome('chromedriver', options=options)
     
     
@@ -40,6 +41,7 @@ try:
     soup = BeautifulSoup(source, 'html.parser')
     a_list = soup.find_all('a')
     regions_list = [x for x in a_list if ('2020 jalkapallo' in x.get_text() and 'turnaukset' not in x.get_text())]
+    regions_list = list(dict.fromkeys(regions_list))
     regions = [{'name': x.get_text(), 'link': 'https://www.palloliitto.fi'+x.get('href'), 'region': x.get_text().split(' ')[-1]} for x in regions_list]
     print('duration', int((time.time()-start_time)/60), 'minutes.')
     print(len(regions), 'regions added.')
@@ -57,6 +59,11 @@ try:
         if len(leagues_list) > 0:
             dict_leagues = [{'name': x.get_text(), 'link': region['link']+x.get('href'), 'region': region['name'].split(' ')[-1]} for x in leagues_list if 'talvi' not in x.get_text()]
             leagues = leagues.append(dict_leagues, ignore_index=True)
+            
+    # Fix known errors
+    leagues.loc[leagues['name'] == 'Ykkönen', ['name']] = 'Miesten Ykkönen'
+    leagues.loc[leagues['name'] == 'Kakkonen', ['name']] = 'Miesten Kakkonen'
+    
     print('duration', int((time.time()-start_time)/60), 'minutes.')
     print(len(leagues), 'leagues added')
     
@@ -105,9 +112,6 @@ try:
             matches = pd.concat([matches, df_matches], ignore_index=True)
         except:
             print('error with', league['link'])
-        
-        if league['link'] == leagues['link'].values.tolist()[-1]:
-            break
 
     print('duration', int((time.time()-start_time)/60), 'minutes.')
     
@@ -179,6 +183,14 @@ try:
             count += 1
             if count % 100 == 0:
                 print(count, '/', len(no_details_dict), 'done.')
+                
+    # Fix known errors
+    if 545 not in locations['_id'].values.tolist():
+        locations.append({'_id': 545,'address': 'Paavo Nurmen tie 1','city': 'Helsinki','coordinates': '60.187749, 24.927332',
+                        'name': 'Olympiastadion N','postalcode': '00250','surface': 'nurmi'}, ignore_index=True)
+    
+    if 4852 in locations['_id'].values.tolist():
+        locations.loc[locations['_id'] == 4852, ['city']] = 'Vaasa'
     
     # Remove duplicate locations
     u_coords = []
@@ -348,6 +360,8 @@ try:
     matches.sort_values(by=['start_date','time'], inplace=True)
     matches['score'] = ['-' if x in ['ennakko','ilmoita'] else x for x in matches['score'].values.tolist()]
     
+    matches.fillna('', inplace=True)
+    
     # Clean locations table
     
     locations['postalcode'] = [((5-len(str(x)))*'0')+str(x) for x in locations['postalcode'].values.tolist()]
@@ -360,6 +374,8 @@ try:
     locations['lat'] = lat_list
     locations['lon'] = lon_list
     
+    locations.fillna('', inplace=True)
+    
     # Update DB
     
     if len(matches) > 10000:
@@ -367,6 +383,13 @@ try:
         matches_records = matches.to_dict(orient='records')
         matches_collection = db['matches']
         matches_collection.insert_many(matches_records)
+        
+        try:
+            db['info'].drop()
+            info_collection = db['info']
+            info_collection.insert_one({'updated': date.today().strftime("%Y-%m-%d")})
+        except:
+            pass
         print('matches updated.')
     
     if len(locations) > 300:
