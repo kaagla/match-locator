@@ -1,0 +1,17 @@
+.info-container {
+    letter-spacing: 0.1rem;
+    width: 60%;
+}
+
+.info-container > * {
+    margin-top: 3rem;
+}
+
+.info-container--details {
+    display: flex;
+    flex-direction: column;
+}
+
+.info-container--details > *:not(:last-child) {
+    margin-bottom: 1rem;
+}

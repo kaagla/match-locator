@@ -1,0 +1,72 @@
+.matchlist-component {
+    width: 95%;
+    min-width: fit-content;
+}
+
+.matchlist-component--header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    background-color: rgba(var(--main-color-2), 0.1);
+    border-radius: 7px;
+    padding: 0.5rem;
+    margin-top: 1rem;
+    cursor: pointer;
+}
+
+.matchlist-component--header-name {
+    display: flex;
+    flex-direction: row;
+}
+
+.matchlist-component--header-count {
+    width: 4rem;
+    align-self: flex-start;
+}
+
+.matchlist-component--match-details {
+    display: flex;
+    flex-direction: row;
+    margin-right: 1rem;
+    margin-left: 1rem;
+    padding: 0.5rem;
+}
+
+.matchlist-component--match-details:not(:last-of-type) {
+    border-bottom: rgba(var(--main-color-2) 0.3) solid 1px;
+}
+
+.matchlist-component--match-details--whenwhere,
+.matchlist-component--match-details--who {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    justify-content: center;
+}
+
+.matchlist-component--match-details-date {
+    margin-right: 3rem;
+}
+
+
+.matchlist-component--match-details-team-info {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+}
+
+
+.matchlist-component--match-details-home,
+.matchlist-component--match-details-away {
+    width: 45%;
+}
+
+.matchlist-component--match-details-score {
+    width: 10%;
+    text-align: center;
+}
+
+.matchlist-component--match-details-away {
+    text-align: right;
+}

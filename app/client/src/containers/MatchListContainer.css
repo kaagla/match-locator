@@ -1,0 +1,17 @@
+.matchlist-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.matchlist-container--grouping {
+    margin-top: 3rem;
+    margin-bottom: 2rem;
+}
+
+.matchlist-container--grouping select {
+    background-color: inherit;
+    padding: 0.2rem;
+    border-radius: 7px;
+}

@@ -1,0 +1,29 @@
+.standings-container > * {
+    margin-top: 3rem;
+}
+
+.standings-container table {
+    border-collapse: collapse;
+}
+
+.standings-container th,
+.standings-container td {
+    padding: 0.4rem 1rem;
+    border: 0;
+}
+
+.standings-container tr {
+    text-align: right;
+}
+
+.standings-container th {
+    cursor: pointer;
+}
+
+.standings-container tr:nth-child(even) {
+    background-color: rgba(var(--main-color-2), 0.1);
+}
+
+.standings-container td:nth-child(2) {
+    text-align: left;
+}

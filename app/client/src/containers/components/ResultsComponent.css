@@ -1,0 +1,24 @@
+.results-component {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin-top: 2rem;
+}
+
+.results-component--update-btn,
+.results-component--update-btn-hide {
+    text-align: center;
+    width: 30%;
+    background-color: rgba(var(--main-color-2), 0.6);
+    padding: 1rem;
+    border-radius: 7px;
+    font-size: 1rem;
+    margin-top: 1rem;
+    cursor: pointer;
+    letter-spacing: 0.2rem;
+}
+
+.results-component--update-btn-hide {
+    visibility: hidden;
+} 

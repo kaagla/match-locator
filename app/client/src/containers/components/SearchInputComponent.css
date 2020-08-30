@@ -1,0 +1,15 @@
+.search-input-component {
+    display: flex;
+    justify-content: center;
+}
+
+.search-input-component form {
+    width: 90%;
+}
+
+.search-input-component input {
+    width: 100%;
+    padding: 0.5rem;
+    background-color: inherit;
+    border-bottom: rgba(0, 0, 0, 0.4) solid 2px;
+}

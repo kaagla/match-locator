@@ -1,0 +1,137 @@
+:root {
+  --main-color-1: 234, 231, 220;
+  --main-color-2: 233, 128, 116;
+}
+
+* {
+  margin: 0;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+@media only screen and (max-width: 600px) {
+  html {
+    font-size: calc(62.5% * 0.5);
+  }
+}
+
+body {
+  font-size: 1.5rem;
+}
+
+ul {
+  padding: 0;
+  list-style: none;
+  list-style-type: none;
+  -webkit-padding-start: 0;
+}
+
+a,
+a:link,
+a:visited {
+  color: inherit;
+  text-decoration: none;
+}
+
+input {
+  border: none;
+}
+
+input:focus {
+  outline: none;
+}
+
+select {
+  font-family: inherit;
+  border: none;
+}
+
+select:focus {
+  outline: none;
+}
+
+select option {
+  border: none;
+}
+
+.container {
+  height: 100vh;
+  width: 100%;
+  z-index: 99;
+  position: fixed;
+  top: 0;
+  left: 0;
+  backdrop-filter: blur(2px);
+  display: flex;
+  justify-content: center;
+}
+
+.container-box {
+  background-color: rgb(var(--main-color-1));
+  backdrop-filter: blur(2px);
+  display: flex;
+  justify-content: center;
+  width: 800px;
+  min-width: fit-content;
+  margin-top: 10rem;
+  margin-bottom: 3rem;
+  border-radius: 7px;
+  border: rgba(var(--main-color-2), 0.3) dashed 2px;
+  position: relative;
+  overflow-y: auto;
+}
+
+@media only screen and (max-width: 600px) {
+  .container-box {
+    width: 95vw;
+  }
+}
+
+.not-visible,
+.not-visible > * {
+  display: none;
+}
+
+.arrow-up,
+.arrow-down {
+  border: solid black;
+  border-width: 0 0.2rem 0.2rem 0;
+  display: inline-block;
+  padding: 2px;
+}
+
+.arrow-up {
+  transform: rotate(-135deg);
+  -webkit-transform: rotate(-135deg);
+}
+
+.arrow-down {
+  transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+}
+
+.close-btn {
+  position: absolute;
+  right: 0;
+  top: 0;
+  height: 2rem;
+  width: 2rem;
+  border: rgb(var(--main-color-2)) dashed 2px;
+  opacity: 0.5;
+  display: inline-block;
+  padding: 0.3rem;
+  border-radius: 7px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.05s;
+  font-size: 1.5rem;
+  color: rgb(var(--main-color-2));
+  
+}
+
+.close-btn:hover {
+  opacity: 1;
+  z-index: 100;
+}

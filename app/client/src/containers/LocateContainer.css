@@ -1,0 +1,30 @@
+.locate-components {
+    display: flex;
+    flex-direction: column;
+    width: 30%;
+    margin-top: 5rem;
+}
+
+.city-list {
+    margin-left: 2rem;
+    margin-right: 2rem;
+    margin-top: 2rem;
+    font-size: 1.5rem;
+    overflow-y: auto;
+}
+
+.city-list li {
+    margin-left: 2rem;
+    padding: 0.5rem;
+}
+
+.city-list li > * {
+    cursor: pointer;
+    padding: 0.3rem;
+    border-radius: 7px;
+    transition: all 0.01s;
+}
+
+.city-list li > *:hover {
+    background-color: rgba(var(--main-color-2), 0.3);
+}
