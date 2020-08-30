@@ -10,13 +10,22 @@ from dotenv import load_dotenv
 import os
 import datetime
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='./client/build', static_url_path='/')
 CORS(app)
 
 load_dotenv()
 
 client = pymongo.MongoClient(os.getenv("MONGODB_CLIENT"))
 db = client["mldb"]
+
+@app.route('/')
+def index():
+    return app.send_static_file('index.html')
+
+@app.route('/api/info', methods=['GET'])
+def getInfo():
+    info = list(db['info'].find({},{'_id': 0}))
+    return jsonify(info)
 
 @app.route('/api/locations', methods=['GET'])
 def getLocations():
@@ -28,6 +37,29 @@ def getLocations():
 
     locations = list(db['locations'].find(conds))
     return jsonify(locations)
+
+@app.route('/api/citycoordinates', methods=['POST'])
+def getCityCoordinates():
+
+    if request.json.get('city'):
+        city = request.json.get('city')
+        city_coords = list(db['locations'].aggregate([
+            { '$match': {
+                'city': city['name']
+            }},
+            { '$group': {
+                    '_id': 0,
+                    'city': { '$first': '$city' },
+                    'lat': { '$avg': '$lat' },
+                    'lon': { '$avg': '$lon' }
+                }
+            },
+            { '$project': {
+                '_id': 0
+            }}
+        ]))
+
+    return jsonify(city_coords)
 
 @app.route('/api/cities')
 def getCities():
@@ -94,7 +126,7 @@ def getMatches():
             'time': 1,
             'venue_name': 1,
             'location_id': 1,
-            'location.city': 1,
+            'city': '$location.city',
             'level': 1,
             'home_name': 1,
             'away_name': 1,
@@ -157,6 +189,8 @@ def getStandings():
             url = 'https://www.palloliitto.fi/'+region+'/'+league
         else:
             league = selected['name'].replace('ö','o').replace(' ','-').lower()
+            if league == 'miesten-kakkonen':
+                league = 'kakkonen'
             url = 'https://www.palloliitto.fi/'+league
     else:
         if len(selected['name'].split(' - ')[1].split(' (')) > 1:
@@ -166,11 +200,11 @@ def getStandings():
             team = selected['name'].split(' - ')[0]
         else:
             league = selected['name'].split(' - ')[1].replace('ö','o').replace(' ','-').lower()
+            if league == 'miesten-kakkonen':
+                league = 'kakkonen'
             url = 'https://www.palloliitto.fi/'+league
             team = selected['name'].split(' - ')[0]
 
-    print(url)
-    print(team)
     page = requests.get(url)
     soup = BeautifulSoup(page.content, 'html.parser')
     try:
@@ -188,7 +222,6 @@ def getStandings():
             }
             group_list.append(data)
         
-        print(group_list)
         standings = []
         for x in group_list:
             try:
@@ -215,7 +248,6 @@ def getStandings():
                         })
 
                     standings.append(data)
-                    print('team found')
                     break
                 else:
                     if team == None:
@@ -241,7 +273,6 @@ def getStandings():
                                 pass
 
                         standings.append(data)
-                        print('group addded')
             except:
                 pass
     except:
@@ -269,4 +300,4 @@ def getStandings():
     return jsonify(standings)
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=os.getenv('API_PORT'), debug=False)
+    app.run(host='0.0.0.0', port=os.getenv('PORT'), debug=False)
