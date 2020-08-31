@@ -58,6 +58,15 @@
   letter-spacing: 0.3rem;
 }
 
+@media only screen and (max-width: 600px) {
+  .navi-item,
+  .navi-item-selected,
+  .navi-item-disabled {
+    width: 5rem;
+    letter-spacing: 0;
+  }
+}
+
 .navi-definition {
   font-size: 1rem;
   padding-top: 0.2rem;
