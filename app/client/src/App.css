@@ -63,17 +63,21 @@ select option {
   position: fixed;
   top: 0;
   left: 0;
-  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+          backdrop-filter: blur(2px);
   display: flex;
   justify-content: center;
 }
 
 .container-box {
   background-color: rgb(var(--main-color-1));
-  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+          backdrop-filter: blur(2px);
   display: flex;
   justify-content: center;
   width: 800px;
+  min-width: -webkit-fit-content;
+  min-width: -moz-fit-content;
   min-width: fit-content;
   margin-top: 10rem;
   margin-bottom: 3rem;

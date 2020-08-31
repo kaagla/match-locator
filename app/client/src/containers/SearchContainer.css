@@ -1,16 +1,25 @@
 .search-container {
     display: flex;
     flex-direction: column;
+    height: 100%;
+    overflow: auto;
+}
+
+.search-container--results {
+    height: 10rem;
 }
 
 .search-container--menu {
     display: flex;
     flex-direction: row;
     margin-top: 2rem;
+    height: 7rem;
 }
 
 .search-container--menu-item,
 .search-container--menu-item-selected {
+    display: flex;
+    flex-direction: row;
     margin-left: 2rem;
     margin-right: 2rem;
     padding: 1rem;
@@ -34,6 +43,11 @@
     border-radius: 7px;
     min-height: fit-content;
     overflow: auto;
+}
+
+.search-container--menu-item-count {
+    width: 0;
+    height: 0;
 }
 
 .error-info {

@@ -113,7 +113,7 @@ export default function Search(props) {
                     <div className='error-info'>{props.errorText}</div>
                     : <span></span>
                     }
-                    <div>
+                    <div className='search-container--results'>
                         <Results
                             changesMade={changesMade}
                             numMatches={props.matches.length}
@@ -141,7 +141,7 @@ export default function Search(props) {
                                 definition={'ETSI'}
                             />
                         </div>
-                        <span
+                        <div
                             className={selectedMenuItem === 'filter' ? 'search-container--menu-item-selected':'search-container--menu-item'}
                             onClick={() => setSelectedMenuItem('filter')}
                         >
@@ -149,9 +149,11 @@ export default function Search(props) {
                                 icon={'filter'}
                                 definition={'SUODATTIMET'}
                             />
-                            <CountBadge count={filters.length} />
-                        </span>
-                        <span
+                            <div className='search-container--menu-item-count'>
+                                <CountBadge count={filters.length} />
+                            </div>
+                        </div>
+                        <div
                             className={selectedMenuItem === 'star' ? 'search-container--menu-item-selected':'search-container--menu-item'}
                             onClick={() => setSelectedMenuItem('star')}
                         >
@@ -159,8 +161,10 @@ export default function Search(props) {
                                 icon={'star'}
                                 definition={'SUOSIKIT'}
                             />
-                            <CountBadge count={favourites.length} />
-                        </span>
+                            <div className='search-container--menu-item-count'>
+                                <CountBadge count={favourites.length} />
+                            </div>
+                        </div>
                     </div>
                     <div className='search-container--item-group'>
                         <div className={selectedMenuItem === 'calendar' ? '':'not-visible'}>

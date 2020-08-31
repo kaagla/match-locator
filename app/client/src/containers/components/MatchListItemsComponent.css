@@ -40,8 +40,15 @@
 .matchlist-component--match-details--who {
     display: flex;
     flex-direction: column;
-    width: 50%;
     justify-content: center;
+}
+
+.matchlist-component--match-details--whenwhere {
+    width: 45%;
+}
+
+.matchlist-component--match-details--who {
+    width: 55%;
 }
 
 .matchlist-component--match-details-date {

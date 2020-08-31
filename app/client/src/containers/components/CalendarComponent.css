@@ -42,7 +42,7 @@
 }
 
 .calendar-component--tables {
-    width: 70%;
+    width: 33rem;
     background-color: white;
     overflow-y: scroll;
     border-radius: 7px;
@@ -54,6 +54,7 @@
 
 .calendar-component--table-headings {
     background-color: white;
+    position: -webkit-sticky;
     position: sticky;
     top: 0;
     bottom: auto;
@@ -73,7 +74,7 @@
 }
 
 .calendar-component th, .calendar-component td {
-    padding: 0.4rem 1.5rem;
+    padding: 0.4rem 1.2rem;
     border: 0;
 }
 

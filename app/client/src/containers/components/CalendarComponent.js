@@ -160,14 +160,16 @@ export default function Calendar(props) {
     }
 
     function displayDate(date) {
+        let month = parseInt(date.split('-')[1])
+        let day = parseInt(date.split('-')[2])
+        return day + '.' + month + '.'
+    }
+
+    function displayDateWyear(date) {
         let year = date.split('-')[0]
         let month = parseInt(date.split('-')[1])
         let day = parseInt(date.split('-')[2])
-        if (year === 2020) {
-          return day + '.' + month + '.' + year
-        } else {
-          return day + '.' + month + '.'
-        }
+        return day + '.' + month + '.' + year 
     }
 
     useEffect(() => {
@@ -192,14 +194,18 @@ export default function Calendar(props) {
                     {props.dateFrom === props.dateTo ?
                     
                     <div>
-                        {displayDate(props.dateFrom)}
+                        {displayDateWyear(props.dateFrom)}
                     </div>
                     
                     :
                     <div>
+                        {props.dateFrom.split('-')[0] === props.dateTo.split('-')[0] ?
                         <span>{displayDate(props.dateFrom)}</span>
+                        :
+                        <span>{displayDateWyear(props.dateFrom)}</span>
+                        }
                         <span> &rarr; </span>
-                        <span>{displayDate(props.dateTo)}</span>
+                        <span>{displayDateWyear(props.dateTo)}</span>
                     </div>
                     }
                 </div>
