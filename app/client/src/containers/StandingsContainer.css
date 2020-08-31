@@ -12,6 +12,13 @@
     border: 0;
 }
 
+@media only screen and (max-width: 600px) {
+    .standings-container th,
+    .standings-container td {
+        padding: 0.2rem 0.5rem;
+    }
+}
+
 .standings-container tr {
     text-align: right;
 }

@@ -2,7 +2,6 @@
     display: flex;
     flex-direction: column;
     height: 100%;
-    overflow: auto;
 }
 
 .search-container--results {
@@ -44,9 +43,9 @@
     border-radius: 7px 7px 0 0;
 }
 
-.search-container--item-group:not(:first-child) {
+.search-container--item-group {
     padding-top: 2rem;
-    margin-bottom: 2rem;
+    padding-bottom: 5rem;
     background-color: rgba(var(--main-color-2), 0.1);
     border-radius: 7px;
     overflow: auto;

@@ -50,8 +50,8 @@
 
 @media only screen and (max-width: 600px) {
     .calendar-component--tables {
-        width: 25rem;
-        height: 30rem;
+        width: 30rem;
+        height: 20rem;
     }
 }
 
