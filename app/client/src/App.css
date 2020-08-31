@@ -79,7 +79,7 @@ select option {
   min-width: -webkit-fit-content;
   min-width: -moz-fit-content;
   min-width: fit-content;
-  margin-top: 10rem;
+  margin-top: 9rem;
   margin-bottom: 3rem;
   border-radius: 7px;
   border: rgba(var(--main-color-2), 0.3) dashed 2px;
@@ -90,6 +90,7 @@ select option {
 @media only screen and (max-width: 600px) {
   .container-box {
     width: 95vw;
+    margin-top: 7.5rem;
   }
 }
 

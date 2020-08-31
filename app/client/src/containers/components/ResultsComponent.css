@@ -1,9 +1,10 @@
 .results-component {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    justify-content: space-evenly;
     align-items: center;
     text-align: center;
-    margin-top: 2rem;
+    margin-top: 1rem;
 }
 
 .results-component--update-btn,
@@ -14,7 +15,6 @@
     padding: 1rem;
     border-radius: 7px;
     font-size: 1rem;
-    margin-top: 1rem;
     cursor: pointer;
     letter-spacing: 0.2rem;
 }
