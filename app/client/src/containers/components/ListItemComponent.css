@@ -29,12 +29,20 @@
 
 .list-item-component--options .icon-component {
     cursor: pointer;
-    /*font-size: 1.5rem;*/
 }
 
 .list-item-component--options .icon-component--definition {
     font-size: 0.9rem;
     letter-spacing: 0.1rem;
+}
+
+@media only screen and (max-width: 600px) {
+    .list-item-component--options .icon-component--definition {
+        letter-spacing: 0;
+    }
+    .list-item-component--options-group > * {
+        margin-right: 0.5rem;
+    }
 }
 
 .list-item-component--options-group {

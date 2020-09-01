@@ -46,7 +46,6 @@ export default function Standings(props) {
     }
 
     function applySort(header) {
-        console.log(header)
         if (selectedSort === header) {
             sortDescending ? setSortDescending(false) : setSortDescending(true)
             
@@ -86,31 +85,33 @@ export default function Standings(props) {
                     {sortedStandingsByGroup().map(group =>
                         <div key={group.name} className='group-component'>
                             <table className='standings-group-table'>
-                                <tr>
-                                    <th></th>
-                                    <th></th>
-                                    {Object.keys(headings).map(heading =>
-                                        heading === selectedSort ?
-                                            <th onClick={() => applySort(heading)}>
-                                            <span>{headings[heading]} </span>
-                                            {sortDescending ?
-                                                <span>&darr;</span>
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th></th>
+                                        {Object.keys(headings).map(heading =>
+                                            heading === selectedSort ?
+                                                <th onClick={() => applySort(heading)}>
+                                                <span>{headings[heading]} </span>
+                                                {sortDescending ?
+                                                    <span>&darr;</span>
+                                                    :
+                                                    <span>&uarr;</span>
+                                                }
+                                                </th>
                                                 :
-                                                <span>&uarr;</span>
-                                            }
-                                            </th>
-                                            :
-                                            <th onClick={() => applySort(heading)}>
-                                                <span>{headings[heading]}</span>
-                                            </th>
-                                        
-                                    )}
-                                </tr>
+                                                <th onClick={() => applySort(heading)}>
+                                                    <span>{headings[heading]}</span>
+                                                </th>
+                                            
+                                        )}
+                                    </tr>
+                                </thead>
+                                <tbody>
                                 {group.standings.map(team =>
                                     <tr 
                                         key={team.name}
                                         name={team.name}
-                                        id={team.name === 'NuPS' ? 'standings-container--team-row':''}
                                     >
                                         <td>{group.standings.indexOf(team)+1}.</td>
                                         <td id={team.name} >{team.team}</td>
@@ -124,8 +125,8 @@ export default function Standings(props) {
                                         <td>{team.points}</td>
                                     </tr>
                                 )}
+                                </tbody>
                             </table>
-                            
                         </div>
                     )}
                 </div>

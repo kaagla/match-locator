@@ -16,6 +16,7 @@
     width: 95vw;
     left: 2.5vw;
     margin-top: 0;
+    height: 6rem;
   }
 }
 
@@ -63,8 +64,10 @@
   .navi-item,
   .navi-item-selected,
   .navi-item-disabled {
-    width: 5rem;
     letter-spacing: 0;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    width: fit-content;
   }
 }
 

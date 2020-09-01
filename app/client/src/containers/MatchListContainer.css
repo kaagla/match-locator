@@ -10,8 +10,12 @@
     margin-bottom: 2rem;
 }
 
+.matchlist-container--grouping label {
+    display: block;
+}
+
 .matchlist-container--grouping select {
-    background-color: inherit;
-    padding: 0.2rem;
+    background-color: white;
+    padding: 0.4rem;
     border-radius: 7px;
 }

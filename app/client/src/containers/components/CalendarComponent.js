@@ -209,20 +209,23 @@ export default function Calendar(props) {
                     </div>
                     }
                 </div>
-                <div className='calendar-component--tables'>
+                
                 <div className='calendar-component--table-headings'>
                     <table>
-                        <tr>
-                            <th>MA</th>
-                            <th>TI</th>
-                            <th>KE</th>
-                            <th>TO</th>
-                            <th>PE</th>
-                            <th>LA</th>
-                            <th>SU</th>
-                        </tr>
+                        <thead>
+                            <tr>
+                                <th>MA</th>
+                                <th>TI</th>
+                                <th>KE</th>
+                                <th>TO</th>
+                                <th>PE</th>
+                                <th>LA</th>
+                                <th>SU</th>
+                            </tr>
+                        </thead>
                     </table>
                 </div>
+                <div className='calendar-component--tables'>
                 {getCalData([2019,2020,2021]).map(table =>
                 <div
                     className='calendar-component--month'
@@ -231,48 +234,53 @@ export default function Calendar(props) {
                 >
                     <h5>{displayMonth(table.month) + ' ' + table.year}</h5>
                     <table>
-                        
-                        {table.monthDays.map(week =>
-                        <tr>
-                            {week.map(day =>
-                            isBetweenSelected(day.date) && !isOtherMonth(day.date, table.month) ?
-                            day.date === props.dateFrom || day.date === props.dateTo ?
-                            <td 
-                                className='calendar-component--item-selected'
-                                onClick={() => handleCalClick(day.date)}
-                            >
-                                
-                                {day.date.split('-')[2]}
-                            </td>
-                            :
-                            <td 
-                                className='calendar-component--item-selected-range'
-                                onClick={() => handleCalClick(day.date)}
-                            >
-                                
-                                {day.date.split('-')[2]}
-                            </td>
-                            :
-                            isOtherMonth(day.date, table.month) ?
-                                isOtherYear(day.date, table.year) ?
-                                <td></td>
+                        <tbody>
+                            {table.monthDays.map(week =>
+                            <tr>
+                                {week.map(day =>
+                                isBetweenSelected(day.date) && !isOtherMonth(day.date, table.month) ?
+                                day.date === props.dateFrom || day.date === props.dateTo ?
+                                <td
+                                    key={day.date}
+                                    className='calendar-component--item-selected'
+                                    onClick={() => handleCalClick(day.date)}
+                                >
+                                    
+                                    {day.date.split('-')[2]}
+                                </td>
                                 :
                                 <td
-                                    className='calendar-component--item-difmonth'
+                                    key={day.date}
+                                    className='calendar-component--item-selected-range'
+                                    onClick={() => handleCalClick(day.date)}
+                                >
+                                    
+                                    {day.date.split('-')[2]}
+                                </td>
+                                :
+                                isOtherMonth(day.date, table.month) ?
+                                    isOtherYear(day.date, table.year) ?
+                                    <td key={day.date}></td>
+                                    :
+                                    <td
+                                        key={day.date}
+                                        className='calendar-component--item-difmonth'
+                                        onClick={() => handleCalClick(day.date)}
+                                    >
+                                        {day.date.split('-')[2]}
+                                    </td>
+                                :
+                                <td
+                                    key={day.date}
+                                    className='calendar-component--item'
                                     onClick={() => handleCalClick(day.date)}
                                 >
                                     {day.date.split('-')[2]}
                                 </td>
-                            :
-                            <td
-                                className='calendar-component--item'
-                                onClick={() => handleCalClick(day.date)}
-                            >
-                                {day.date.split('-')[2]}
-                            </td>
+                                )}
+                            </tr>
                             )}
-                        </tr>
-                        )}
+                        </tbody>
                     </table>
                 </div>
                 )}

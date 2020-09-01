@@ -1,7 +1,8 @@
 .locate-components {
     display: flex;
     flex-direction: column;
-    width: 50%;
+    align-items: center;
+    width: 70%;
     margin-top: 5rem;
 }
 
@@ -11,6 +12,7 @@
     margin-top: 2rem;
     font-size: 1.5rem;
     overflow-y: auto;
+    width: 50%;
 }
 
 .city-list li {

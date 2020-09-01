@@ -26,60 +26,61 @@
 
 .matchlist-component--match-details {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
+    align-items: center;
     margin-right: 1rem;
     margin-left: 1rem;
+    margin-bottom: 2rem;
     padding: 0.5rem;
 }
 
-.matchlist-component--match-details:not(:last-of-type) {
-    border-bottom: rgba(var(--main-color-2) 0.3) solid 1px;
-}
-
-.matchlist-component--match-details--whenwhere,
-.matchlist-component--match-details--who {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+.matchlist-component--match-details:nth-of-type(even) {
+    background-color: rgba(var(--main-color-2), 0.1);
 }
 
 .matchlist-component--match-details--whenwhere {
-    width: 45%;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
 }
 
-.matchlist-component--match-details--who {
-    width: 55%;
-}
-
-@media only screen and (max-width: 600px) {
-    .matchlist-component--match-details--whenwhere {
-        width: 35%;
-    }
-    .matchlist-component--match-details--who {
-        width: 65%;
-    }
-}
-
-.matchlist-component--match-details-date {
+.matchlist-component--match-details-date,
+.matchlist-component--match-details-time{
     margin-right: 3rem;
 }
 
+.matchlist-component--match-details--who {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    width: 100%;
+    margin-top: 0.5rem;
+}
+
+.matchlist-component--match-details-date > :first-child,
+.matchlist-component--match-details-time > :first-child,
+.matchlist-component--match-details-venue > :first-child,
+.matchlist-component--match-details-level > :first-child {
+    margin-right: 1rem;
+}
 
 .matchlist-component--match-details-team-info {
     display: flex;
     flex-direction: row;
-    align-items: center;
-    width: 100%;
+    justify-self: center;
+    align-self: center;
+    width: 95%;
+    padding-top: 1rem;
 }
 
 
 .matchlist-component--match-details-home,
 .matchlist-component--match-details-away {
-    width: 45%;
+    width: 40%;
 }
 
 .matchlist-component--match-details-score {
-    width: 10%;
+    width: 20%;
     text-align: center;
 }
 

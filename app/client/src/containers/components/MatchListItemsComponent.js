@@ -27,8 +27,6 @@ export default function MatchListItems(props) {
         info += `${props.matches.length} ottelua)`
     }
 
-
-    console.log(props)
     return (
         <div className='matchlist-component'>
             <div
@@ -48,26 +46,31 @@ export default function MatchListItems(props) {
                     className='matchlist-component--match-details'
                 >
                     <div className='matchlist-component--match-details--whenwhere'>
-                        <div className='matchlist-component--match-details--whenwhere-when'>
+                        
                             {props.groupbyItem !== 'date' ?
-                            <span className='matchlist-component--match-details-date'>{match.date}</span>
+                            <div className='matchlist-component--match-details-date'>
+                                <span><i class="far fa-calendar"></i></span>
+                                <span>{match.date}</span>
+                            </div>
                             : <span></span>
                             }
-                            <span
-                                className='matchlist-component--match-details-time'
-                            >{match.time}</span>
-                        </div>
-                        <div className='matchlist-component--match-details--whenwhere-where'>
+                            <div className='matchlist-component--match-details-time'>
+                                <span><i class="far fa-clock"></i></span>
+                                <span>{match.time}</span>
+                            </div>
                             {props.groupbyItem !== 'venue_name' ?
-                            <span
+                            <div
                                 className='matchlist-component--match-details-venue'
                             >
+                                <span><i class="fas fa-map-marker-alt"></i></span>
+                                <span>
                                 {props.groupbyItem === 'city' ?
                                     match.venue_name
                                     :
                                     displayVenue(match.venue_name)
                                 }
-                            </span>
+                                </span>
+                            </div>
                             : <span></span>
                             }
                             {!['city','venue_name'].includes(props.groupbyItem) ?
@@ -76,21 +79,19 @@ export default function MatchListItems(props) {
                             ></span>
                             : <span></span>
                             }
-                        </div>
                     </div>
                     <div className='matchlist-component--match-details--who'>
-                        <div>
-                            {props.groupbyItem !== 'level' ?
-                            <span
-                                className='matchlist-component--match-details-level'
-                            >{match.level}</span>
-                            : <span></span>
-                            }
+                        {props.groupbyItem !== 'level' ?
+                        <div className='matchlist-component--match-details-level'>
+                            <span><i class="fas fa-trophy"></i></span>
+                            <span>{match.level}</span>
                         </div>
+                        : <span></span>
+                        }
                         <div className='matchlist-component--match-details-team-info'>
-                            <div
-                                className='matchlist-component--match-details-home'
-                            >{match.home_name}</div>
+                            <div className='matchlist-component--match-details-home'>
+                                <span>{match.home_name}</span>
+                            </div>
                             <div
                                 className='matchlist-component--match-details-score'
                             >{match.score}</div>

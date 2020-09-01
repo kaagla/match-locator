@@ -21,7 +21,7 @@
 }
 
 .calendar-component--shortcut {
-    padding: 2rem 1rem 2rem 1rem;
+    margin-top: 1rem;
     width: 50%;
 }
 
@@ -45,7 +45,14 @@
     width: 33rem;
     background-color: white;
     overflow-y: scroll;
-    border-radius: 7px;
+    border-radius: 0 0 7px 7px;
+}
+
+.calendar-component--table-headings {
+    width: 33rem;
+    height: fit-content;
+    background-color: white;
+    border-radius: 7px 7px 0 0;
 }
 
 @media only screen and (max-width: 600px) {
@@ -53,18 +60,13 @@
         width: 30rem;
         height: 20rem;
     }
+    .calendar-component--table-headings {
+        width: 30rem;
+    }
 }
 
 .calendar-component table {
     border-collapse: collapse;
-}
-
-.calendar-component--table-headings {
-    background-color: white;
-    position: -webkit-sticky;
-    position: sticky;
-    top: 0;
-    bottom: auto;
 }
 
 .calendar-component--month {
