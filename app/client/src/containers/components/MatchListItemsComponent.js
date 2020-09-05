@@ -1,13 +1,21 @@
 import React, { useState } from 'react'
 import './MatchListItemsComponent.css';
 import CountBadge from './CountBadgeComponent'
+import MatchPreview from './MatchPreviewComponent'
 
 export default function MatchListItems(props) {
 
     const [itemIsOpen, setItemIsOpen] = useState(props.itemIsOpen)
-
-    //const city = props.matches.filter(m => m.venue_name === props.header)[0].city
+    const [selectedMatches, setSelectedMatches] = useState([])
     
+    function selectMatch(id) {
+        if (selectedMatches.includes(id)) { 
+            setSelectedMatches([...selectedMatches].filter(x => x !== id))
+        } else {
+            setSelectedMatches([...selectedMatches, id])
+        }
+    }
+
     function displayVenue(venue) {
         let city = props.matches.filter(m => m.venue_name === venue)[0].city
         
@@ -17,15 +25,24 @@ export default function MatchListItems(props) {
         return venue + ', ' + city
     }
 
-    let info = '('
+    function isUpcomingMatch(date) {
+        let year = parseInt(date.split('.')[2])
+        let month = parseInt(date.split('.')[1]) - 1
+        let day = parseInt(date.split('.')[0])
+        let matchDate = new Date(year,month,day)
 
-    if (props.matches.length === 0) {
-        info += 'ei otteluita)'
-    } else if (props.matches.length === 1) {
-        info += '1 ottelu)'
-    } else {
-        info += `${props.matches.length} ottelua)`
+        let tyear = new Date().getFullYear()
+        let tmonth = new Date().getMonth()
+        let tday = new Date().getDate()
+        let today = new Date(tyear,tmonth,tday)
+
+        if (matchDate >= today) {
+            return true
+        }
+        return false
     }
+
+
 
     return (
         <div className='matchlist-component'>
@@ -49,20 +66,20 @@ export default function MatchListItems(props) {
                         
                             {props.groupbyItem !== 'date' ?
                             <div className='matchlist-component--match-details-date'>
-                                <span><i class="far fa-calendar"></i></span>
+                                <span><i className="far fa-calendar"></i></span>
                                 <span>{match.date}</span>
                             </div>
                             : <span></span>
                             }
                             <div className='matchlist-component--match-details-time'>
-                                <span><i class="far fa-clock"></i></span>
+                                <span><i className="far fa-clock"></i></span>
                                 <span>{match.time}</span>
                             </div>
                             {props.groupbyItem !== 'venue_name' ?
                             <div
                                 className='matchlist-component--match-details-venue'
                             >
-                                <span><i class="fas fa-map-marker-alt"></i></span>
+                                <span><i className="fas fa-map-marker-alt"></i></span>
                                 <span>
                                 {props.groupbyItem === 'city' ?
                                     match.venue_name
@@ -83,7 +100,7 @@ export default function MatchListItems(props) {
                     <div className='matchlist-component--match-details--who'>
                         {props.groupbyItem !== 'level' ?
                         <div className='matchlist-component--match-details-level'>
-                            <span><i class="fas fa-trophy"></i></span>
+                            <span><i className="fas fa-trophy"></i></span>
                             <span>{match.level}</span>
                         </div>
                         : <span></span>
@@ -100,9 +117,32 @@ export default function MatchListItems(props) {
                             >{match.away_name}</div>
                         </div>
                     </div>
+                    {isUpcomingMatch(match.date) ?
+                    <div className='matchlist-component--match-preview'>
+                    <div 
+                        className='matchlist-component--match-preview-btn'
+                        onClick={() => selectMatch(match['_id'])}
+                    >
+                        <span>Ottelun asetelmat</span>
+                        <span><i className={selectedMatches.includes(match['_id']) ? 'arrow-up':'arrow-down'}></i></span>
+                    </div>
+                        {selectedMatches.includes(match['_id']) ?
+                        <div className='matchlist-component--match-preview-content'>
+                            <MatchPreview
+                                match={match}
+                            />
+                        </div>
+                        :
+                        <span></span>
+                        }
+                    </div>
+                    : <span></span>
+                    }
+                    <div></div>
                 </div>)
             : <div></div>
             }
+
         </div>
     )
 }

@@ -1,0 +1,95 @@
+.match-preview-component {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.match-preview-component .loader {
+    padding: 0;
+}
+
+.match-preview-component-icon {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-top: 2rem;
+    cursor: pointer;
+}
+
+.match-preview-component--last-matches {
+    display: flex;
+    flex-direction: row;
+}
+
+.match-preview-component--last-matches-home,
+.match-preview-component--last-matches-away {
+    width: 50%;
+}
+
+.match-preview-component--last-matches-home {
+    margin-right: 1rem;
+}
+
+.match-preview-component--last-matches-away {
+    margin-left: 1rem;
+}
+
+.match-preview-component--last-matches-home li,
+.match-preview-component--last-matches-away li {
+    display: flex;
+    flex-direction: row;
+    padding: 0.3rem;
+    margin-top: 1rem;
+}
+
+
+.match-preview-component--last-matches-team-home, 
+.match-preview-component--last-matches-team-away {
+    width: 42.5%;
+}
+
+.match-preview-component--last-matches-team-home .selected, 
+.match-preview-component--last-matches-team-away .selected {
+    font-weight: 600;
+}
+
+.match-preview-component--last-matches-team-home {
+    text-align: left;
+}
+
+.match-preview-component--last-matches-team-away {
+    text-align: right;
+}
+
+
+.match-preview-component--last-matches-score {
+    width: 15%;
+    text-align: center;
+}
+
+.match-preview-component--last-matches-date {
+    width: 30%;
+    text-align: center;
+}
+
+.match-preview-component--last-matches-score-win,
+.match-preview-component--last-matches-score-loss,
+.match-preview-component--last-matches-score-draw {
+    padding-right: 0.3rem;
+    padding-left: 0.3rem;
+}
+
+.match-preview-component--last-matches-score-win {
+    background-color: rgba(0, 128, 0, 0.4);
+    border: rgb(0, 128, 0) solid 1px;
+}
+
+.match-preview-component--last-matches-score-loss {
+    background-color: rgba(255, 0, 0, 0.4);
+    border: rgb(255, 0, 0) solid 1px;
+}
+
+.match-preview-component--last-matches-score-draw {
+    background-color: rgba(128, 128, 128, 0.4);
+    border: rgb(128, 128, 128) solid 1px;
+}

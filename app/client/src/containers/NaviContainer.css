@@ -40,8 +40,8 @@
 }
 
 .navi-container li {
-    margin-left: 1rem;
-    margin-right: 1rem;
+    margin-left: 0.2rem;
+    margin-right: 0.2rem;
     margin-top: 0.5rem;
     margin-bottom: 0.5rem;
 }
@@ -65,8 +65,8 @@
   .navi-item-selected,
   .navi-item-disabled {
     letter-spacing: 0;
-    padding-left: 1rem;
-    padding-right: 1rem;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
     width: fit-content;
   }
 }

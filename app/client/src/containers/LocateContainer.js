@@ -23,11 +23,13 @@ export default function Locate(props) {
                     onClick={() => props.handleNaviChange('map')}
                 >X</div>
                 <div className='locate-components'>
-                    <SearchInput
-                        searchText={searchText}
-                        setSearchText={setSearchText}
-                        placeholder={'etsi kaupunki...'}
-                    />
+                    <div className='locate-components--search'>
+                        <SearchInput
+                            searchText={searchText}
+                            setSearchText={setSearchText}
+                            placeholder={'etsi kaupunki...'}
+                        />
+                    </div>
                     <div className='city-list'>
                         <ul>
                             {cities.filter(c => c.name.toLowerCase().includes(searchText.toLowerCase())).map(city =>

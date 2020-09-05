@@ -2,35 +2,6 @@
     margin-top: 3rem;
 }
 
-.standings-container table {
-    border-collapse: collapse;
-}
-
-.standings-container th,
-.standings-container td {
-    padding: 0.4rem 1rem;
-    border: 0;
-}
-
-@media only screen and (max-width: 600px) {
-    .standings-container th,
-    .standings-container td {
-        padding: 0.2rem 0.5rem;
-    }
-}
-
-.standings-container tr {
-    text-align: right;
-}
-
-.standings-container th {
-    cursor: pointer;
-}
-
-.standings-container tr:nth-child(even) {
-    background-color: rgba(var(--main-color-2), 0.1);
-}
-
-.standings-container td:nth-child(2) {
-    text-align: left;
+.standings-container--table {
+    margin-bottom: 7rem;
 }

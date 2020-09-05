@@ -235,8 +235,8 @@ export default function Calendar(props) {
                     <h5>{displayMonth(table.month) + ' ' + table.year}</h5>
                     <table>
                         <tbody>
-                            {table.monthDays.map(week =>
-                            <tr>
+                            {table.monthDays.map((week, index) =>
+                            <tr key={index}>
                                 {week.map(day =>
                                 isBetweenSelected(day.date) && !isOtherMonth(day.date, table.month) ?
                                 day.date === props.dateFrom || day.date === props.dateTo ?

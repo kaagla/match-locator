@@ -29,7 +29,6 @@ function App() {
   const [errorText, setErrorText] = useState('')
   const [DBinfo, setDBinfo] = useState({})
 
-
   function handleNaviChange(item) {
     setNaviSelected(item)
   }
@@ -123,7 +122,9 @@ function App() {
   }
 
   function getStandings(item) {
+    setStandings([])
     setIsLoading(true)
+
     setLoadingText('Haetaan sarjatilannetta...')
 
     let standings = {'standings': item}
@@ -148,7 +149,6 @@ function App() {
     })
   }
 
-  
   useEffect(() => {
     getData('cities')
     getData('levels')

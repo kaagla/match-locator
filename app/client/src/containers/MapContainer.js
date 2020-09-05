@@ -13,18 +13,26 @@ L.Icon.Default.mergeOptions({
 
 export default function Map(props) {
 
-    let zoom = 6
+    function getZoom() {
+        let zoom;
+        if (props.mapCenter.city !== 'Suomi') {
+            zoom = 11
+        } else {
+            zoom = 6
+        }
 
-    if (props.mapCenter.city !== 'Suomi') {
-        zoom = 11
+        if (window.innerWidth <= 600) {
+            return zoom-1
+        }
+        return zoom
     }
-    
+
     return (
         <div className='map-container'>
             <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/leaflet/1.3.1/leaflet.css" />
             <LeafletMap
                 center={[props.mapCenter.lat, props.mapCenter.lon]}
-                zoom={zoom}
+                zoom={getZoom()}
                 attributionControl={true}
                 zoomControl={false}
                 doubleClickZoom={true}

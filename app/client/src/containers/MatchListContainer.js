@@ -38,6 +38,7 @@ export default function MatchList(props) {
                             </label>
                         </form>
                     </div>
+                    <div className='matchlist-container--matchlist-items'>
                     {sortedGroupbySet().map((header, index) =>
                         <MatchListItems
                             key={header}
@@ -47,6 +48,7 @@ export default function MatchList(props) {
                             itemIsOpen={index === 0 ? true : false}
                         />
                     )}
+                    </div>
                 </div>
             </div>
 
