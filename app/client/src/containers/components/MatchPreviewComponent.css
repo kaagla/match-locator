@@ -21,6 +21,18 @@
     flex-direction: row;
 }
 
+.match-preview-component--last-matches .win {
+    background: linear-gradient(90deg, transparent 70%, rgba(0, 128, 0, 0.3));
+}
+
+.match-preview-component--last-matches .loss {
+    background: linear-gradient(90deg, transparent 70%, rgba(255, 0, 0, 0.3));
+}
+
+.match-preview-component--last-matches .draw {
+    background: linear-gradient(90deg, transparent 70%, rgba(128, 128, 128, 0.3));
+}
+
 .match-preview-component--last-matches-home,
 .match-preview-component--last-matches-away {
     width: 50%;
@@ -61,35 +73,29 @@
     text-align: right;
 }
 
+.match-preview-component--last-matches-teams {
+    display: flex;
+    flex-direction: column;
+    width: 85%;
+}
+
+.match-preview-component--last-matches-teams .selected {
+    font-weight: 600;
+}
 
 .match-preview-component--last-matches-score {
     width: 15%;
     text-align: center;
-}
-
-.match-preview-component--last-matches-date {
-    width: 30%;
-    text-align: center;
-}
-
-.match-preview-component--last-matches-score-win,
-.match-preview-component--last-matches-score-loss,
-.match-preview-component--last-matches-score-draw {
+    align-self: center;
+    font-weight: 600;
+    display: flex;
+    flex-direction: column;
     padding-right: 0.3rem;
     padding-left: 0.3rem;
 }
 
-.match-preview-component--last-matches-score-win {
-    background-color: rgba(0, 128, 0, 0.4);
-    border: rgb(0, 128, 0) solid 1px;
-}
-
-.match-preview-component--last-matches-score-loss {
-    background-color: rgba(255, 0, 0, 0.4);
-    border: rgb(255, 0, 0) solid 1px;
-}
-
-.match-preview-component--last-matches-score-draw {
-    background-color: rgba(128, 128, 128, 0.4);
-    border: rgb(128, 128, 128) solid 1px;
+.match-preview-component--last-matches-date {
+    align-self: center;
+    width: 30%;
+    text-align: right;
 }

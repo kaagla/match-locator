@@ -12,7 +12,7 @@ export default function SearchInput(props) {
                         type="search"
                         value={props.searchText}
                         placeholder={props.placeholder}
-                        onChange={(e) => props.setSearchText(e.target.value)}
+                        onChange={(e) => props.handleSearchTextChange(e.target.value)}
                     />
                 </label>
             </form>

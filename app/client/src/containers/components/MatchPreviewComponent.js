@@ -120,24 +120,22 @@ export default function MatchPreview(props) {
                             {previousMatches.filter(m => (m.home_name === props.match.home_name || m.away_name === props.match.home_name)).reverse().map(match =>
                                 <li
                                     key={match['id']}
+                                    className={getResult(props.match.home_name, match)}
                                 >
-                                    <div className='match-preview-component--last-matches-team-home'>
+                                    <div className='match-preview-component--last-matches-teams'>
                                         <span className={match.home_name === props.match.home_name ? 'selected':''}>{match.home_name}</span>
+                                        <span className={match.away_name === props.match.home_name ? 'selected':''}>{match.away_name}</span>
                                     </div>
-                                    {isUpcomingMatch(match.date) ?
+                                    {(isUpcomingMatch(match.date) || match.score === '-') ?
                                     <div className='match-preview-component--last-matches-date'>
                                         {match.date}
                                     </div>
                                     :
                                     <div className='match-preview-component--last-matches-score'>
-                                        <span className={'match-preview-component--last-matches-score-'+getResult(props.match.home_name, match)}>
-                                            {match.score.split(' ')[0]}
-                                        </span>
+                                        <span>{match.score.split(' ')[0].split('-')[0]}</span>
+                                        <span>{match.score.split(' ')[0].split('-')[1]}</span>
                                     </div>
                                     }
-                                    <div className='match-preview-component--last-matches-team-away'>
-                                        <span className={match.away_name === props.match.home_name ? 'selected':''}>{match.away_name}</span>
-                                    </div>
                                 </li>
                             )}
                         </ul>
@@ -147,24 +145,22 @@ export default function MatchPreview(props) {
                             {previousMatches.filter(m => (m.home_name === props.match.away_name || m.away_name === props.match.away_name)).reverse().map(match =>
                                 <li
                                     key={match['id']}
+                                    className={getResult(props.match.away_name, match)}
                                 >
-                                    <div className='match-preview-component--last-matches-team-home'>
+                                    <div className='match-preview-component--last-matches-teams'>
                                         <span className={match.home_name === props.match.away_name ? 'selected':''}>{match.home_name}</span>
+                                        <span className={match.away_name === props.match.away_name ? 'selected':''}>{match.away_name}</span>
                                     </div>
-                                    {isUpcomingMatch(match.date) ?
+                                    {(isUpcomingMatch(match.date) || match.score === '-') ?
                                     <div className='match-preview-component--last-matches-date'>
                                         {match.date}
                                     </div>
                                     :
                                     <div className='match-preview-component--last-matches-score'>
-                                        <span className={'match-preview-component--last-matches-score-'+getResult(props.match.away_name, match)}>
-                                            {match.score.split(' ')[0]}
-                                        </span>
+                                        <span>{match.score.split(' ')[0].split('-')[0]}</span>
+                                        <span>{match.score.split(' ')[0].split('-')[1]}</span>
                                     </div>
                                     }
-                                    <div className='match-preview-component--last-matches-team-away'>
-                                        <span className={match.away_name === props.match.away_name ? 'selected':''}>{match.away_name}</span>
-                                    </div>
                                 </li>
                             )}
                         </ul>

@@ -8,19 +8,7 @@ import Results from './components/ResultsComponent'
 import './SearchContainer.css';
 
 export default function Search(props) {
-    /*
-    let initialFilters = []
 
-    if (JSON.parse(window.localStorage.getItem('filters'))) {
-        initialFilters = JSON.parse(window.localStorage.getItem('filters'))
-    }
-
-    let initialFavourites = []
-
-    if (JSON.parse(window.localStorage.getItem('favourites'))) {
-        initialFavourites = JSON.parse(window.localStorage.getItem('favourites'))
-    }
-    */
     const today = new Date().toJSON().split('T')[0]
     const [dateFrom, setDateFrom] = useState(today);
     const [dateTo, setDateTo] = useState(today);
@@ -29,6 +17,7 @@ export default function Search(props) {
     const [filters, setFilters] = useState(getInitialFilters);
     const [favourites, setFavourites] = useState(getInitialFavourites);
     const [changesMade, setChangesMade] = useState(false);
+    const [numSearchResults, setNumSearchResults] = useState(20);
 
     const searchItems = [...props.cities, ...props.levels, ...props.teams]
 
@@ -89,6 +78,15 @@ export default function Search(props) {
     function applyGetStandings(item) {
         props.getStandings(item)
         props.handleNaviChange('standings')
+    }
+
+    function showMoreResults() {
+        setNumSearchResults(Infinity)
+    }
+
+    function handleSearchTextChange(text) {
+        setNumSearchResults(20)
+        setSearchText(text)
     }
 
     useEffect(() => {
@@ -175,20 +173,36 @@ export default function Search(props) {
                                 setDateTo={setDateTo}
                             />
                         </div>
-                        <div className={selectedMenuItem === 'search' ? '':'not-visible'}>
-                            <SearchInput
-                                searchText={searchText}
-                                setSearchText={setSearchText}
-                                placeholder={'etsi sarjaa, joukkuetta, kaupunkia...'}
-                            />
-                            <List
-                                items={searchText === '' ? [] : searchItems.filter(item => searchText.split(' ').every(i => item.name.toLowerCase().includes(i.toLowerCase()))).slice(0,20)}
-                                filters={filters}
-                                favourites={favourites}
-                                handleSelection={handleSelection}
-                                applyQuickSearch={applyQuickSearch}
-                                applyGetStandings={applyGetStandings}
-                            />
+                        <div className={selectedMenuItem === 'search' ? 'search-container--search':'not-visible'}>
+                            <div className='search-container--search-input'>
+                                <SearchInput
+                                    searchText={searchText}
+                                    setSearchText={setSearchText}
+                                    handleSearchTextChange={handleSearchTextChange}
+                                    placeholder={'etsi sarjaa, joukkuetta, kaupunkia...'}
+                                />
+                            </div>
+                            <div className='search-container--list-component'>
+                                <List
+                                    items={searchText === '' ? [] : searchItems.filter(item => searchText.split(' ').every(i => item.name.toLowerCase().includes(i.toLowerCase()))).slice(0,numSearchResults)}
+                                    filters={filters}
+                                    favourites={favourites}
+                                    handleSelection={handleSelection}
+                                    applyQuickSearch={applyQuickSearch}
+                                    applyGetStandings={applyGetStandings}
+                                />
+                                {(searchText !== '' && searchItems.filter(item => searchText.split(' ').every(i => item.name.toLowerCase().includes(i.toLowerCase()))).length > numSearchResults) ?
+                                <div
+                                    className='search-container--list-component--more-items'
+                                    onClick={() => showMoreResults(true)}
+                                >
+                                    <span>NÄYTÄ LISÄÄ</span>
+                                    <span className='arrow-down'></span>
+                                </div>
+                                : <span></span>
+                                }
+                                
+                            </div>
                         </div>
                         <div className={selectedMenuItem === 'filter' ? '':'not-visible'}>
                             {filters.length > 0 ?
@@ -202,7 +216,6 @@ export default function Search(props) {
                             />
                             : <div></div>
                             }
-                            
                         </div>
                         <div className={selectedMenuItem === 'star' ? '':'not-visible'}>
                             {favourites.length > 0 ?

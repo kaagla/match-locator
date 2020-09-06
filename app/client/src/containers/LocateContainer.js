@@ -15,6 +15,10 @@ export default function Locate(props) {
         props.handleNaviChange('map')
     }
 
+    function handleSearchTextChange(text) {
+        setSearchText(text)
+    }
+
     return (
         <div className='container'>
             <div className='container-box'>
@@ -26,7 +30,7 @@ export default function Locate(props) {
                     <div className='locate-components--search'>
                         <SearchInput
                             searchText={searchText}
-                            setSearchText={setSearchText}
+                            handleSearchTextChange={handleSearchTextChange}
                             placeholder={'etsi kaupunki...'}
                         />
                     </div>
