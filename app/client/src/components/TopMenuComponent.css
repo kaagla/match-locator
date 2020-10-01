@@ -1,0 +1,119 @@
+.top-menu-component {
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 60px;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 1);
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.top-menu-box {
+    width: 90%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.top-menu-left {
+    flex: 1;
+}
+
+.top-menu-left-title {
+    cursor: pointer;
+    width: fit-content;
+    padding: 1rem;
+}
+
+.top-menu-left-title:hover {
+    background-color: white;
+    color: black;
+}
+
+.top-menu-center {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.top-menu-right {
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+
+.menu-items-btn,
+.menu-items-btn-active {
+    transition: all 0.5s;
+    cursor: pointer;
+}
+
+.menu-items-btn:hover,
+.menu-items-btn-active {
+    background-color: white;
+    color: black;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+}
+
+.menu-items {
+    background-color: black;
+    position: fixed;
+    top: 60px;
+    left: 0;
+    width: 100%;
+    max-height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-y: auto;
+}
+
+.item-container {
+    position: fixed;
+    left: 0;
+    top: 60px;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.item-box {
+    width: 50%;
+    min-width: 300px;
+    max-height: calc(100vh*0.8);
+    background-color: rgba(255, 255, 255, 1);
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+    overflow-y: auto;
+    position: relative;;
+}
+
+.item-close {
+    color: black;
+    font-size: 2rem;
+    cursor: pointer;
+    position: absolute;
+    top: 0;
+    right: 5%;
+}
+
+.search-instructions {
+    text-align: center;
+    color: black;
+}
+
+.no-items {
+    text-align: center;
+    color: black;
+    padding: 1rem;
+}

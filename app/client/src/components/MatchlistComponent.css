@@ -1,0 +1,41 @@
+.matchlist-component {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.matchlist-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.matchlist-component--grouping {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding-top: 2rem;
+    margin-bottom: 2rem;
+}
+
+.matchlist-component--grouping-label {
+    margin-right: 2rem;
+    font-size: 1.5rem;
+}
+
+.matchlist-component--grouping select {
+    background-color: white;
+    padding: 0.4rem;
+    border-radius: 5px;
+}
+
+.matchlist-component--matchlist-items {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 5rem;
+}

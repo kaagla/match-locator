@@ -1,0 +1,45 @@
+.standingstable-component {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-top: 2rem;
+}
+
+.standingstable-component table {
+    border-collapse: collapse;
+}
+
+.standingstable-component th,
+.standingstable-component td {
+    padding: 0.4rem 1rem;
+    border: 0;
+}
+
+.standingstable-component tr {
+    text-align: right;
+}
+
+.standingstable-component th {
+    cursor: pointer;
+}
+
+.standingstable-component tr:nth-child(even) {
+    background-color: rgba(var(--main-color-2), 0.4);
+}
+
+.standingstable-component td:nth-child(2) {
+    text-align: left;
+}
+
+@media only screen and (max-width: 600px) {
+    .standingstable-component th,
+    .standingstable-component td {
+        padding: 0.2rem 0.5rem;
+    }
+}
+
+@media only screen and (max-width: 400px) {
+    .standingstable-component {
+        font-size: 1rem;
+    }
+}
