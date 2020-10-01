@@ -33,6 +33,13 @@ try:
     options.add_argument("--log-level=3")
     driver = webdriver.Chrome('chromedriver', options=options)
     
+    region_name_fix = {
+        'eteläinen': 'etelä',
+        'itäinen': 'itä',
+        'läntinen': 'länsi',
+        'pohjoinen': 'pohjoinen',
+        'valtakunnallinen': 'valtakunnallinen'
+    }
     
     # Get regions
     start_time = time.time()
@@ -42,7 +49,7 @@ try:
     a_list = soup.find_all('a')
     regions_list = [x for x in a_list if ('2020 jalkapallo' in x.get_text() and 'turnaukset' not in x.get_text())]
     regions_list = list(dict.fromkeys(regions_list))
-    regions = [{'name': x.get_text(), 'link': 'https://www.palloliitto.fi'+x.get('href'), 'region': x.get_text().split(' ')[-1]} for x in regions_list]
+    regions = [{'name': x.get_text(), 'link': 'https://www.palloliitto.fi'+x.get('href'), 'region': region_name_fix[x.get_text().split(' ')[-1]]} for x in regions_list]
     print('duration', int((time.time()-start_time)/60), 'minutes.')
     print(len(regions), 'regions added.')
     
@@ -57,7 +64,7 @@ try:
         leagues_div = soup.find_all('div', class_='torneopal_widget')[1]
         leagues_list = leagues_div.find_all('a')
         if len(leagues_list) > 0:
-            dict_leagues = [{'name': x.get_text(), 'link': region['link']+x.get('href'), 'region': region['name'].split(' ')[-1]} for x in leagues_list if 'talvi' not in x.get_text()]
+            dict_leagues = [{'name': x.get_text(), 'link': region['link']+x.get('href'), 'region': region['region']} for x in leagues_list if 'talvi' not in x.get_text()]
             leagues = leagues.append(dict_leagues, ignore_index=True)
             
     # Fix known errors
