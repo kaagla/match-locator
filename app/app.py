@@ -227,6 +227,7 @@ def getStandings():
             try:
                 page_group = requests.get('https://www.palloliitto.fi'+x['link'])
                 table_group = pd.read_html(page_group.content)[0]
+                table_group.dropna(subset=['O','V','T','H','M','P'], inplace=True)
 
                 if (str(team) in [x for x in table_group['Unnamed: 1'].values.tolist()]):
                     data = {
