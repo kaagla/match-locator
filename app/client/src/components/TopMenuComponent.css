@@ -22,17 +22,8 @@
 
 .top-menu-left {
     flex: 1;
-}
-
-.top-menu-left-title {
-    cursor: pointer;
-    width: fit-content;
-    padding: 1rem;
-}
-
-.top-menu-left-title:hover {
-    background-color: white;
-    color: black;
+    font-size: 1.5rem;
+    letter-spacing: 0.1rem;
 }
 
 .top-menu-center {
@@ -50,6 +41,9 @@
 
 .menu-items-btn,
 .menu-items-btn-active {
+    width: -webkit-fit-content;
+    width: -moz-fit-content;
+    width: fit-content;
     transition: all 0.5s;
     cursor: pointer;
 }
@@ -63,16 +57,36 @@
 }
 
 .menu-items {
-    background-color: black;
+    background-color: #f6f5f3;
     position: fixed;
     top: 60px;
-    left: 0;
-    width: 100%;
-    max-height: 100%;
+    right: 0;
+    width: 99%;
+    max-width: 500px;
+    max-height: 80%;
     display: flex;
     flex-direction: column;
     align-items: center;
-    overflow-y: auto;
+    overflow-y: scroll;
+    color: black;
+    border: solid 1px black;
+    -webkit-animation: slide-from-right 0.5s linear;
+            animation: slide-from-right 0.5s linear;
+    padding-bottom: 5rem;
+}
+
+@-webkit-keyframes slide-from-right {
+    0% { right: -500px }
+    100% { right: 0; }
+}
+
+@keyframes slide-from-right {
+    0% { right: -500px }
+    100% { right: 0; }
+}
+
+.menu-items-sports-filters {
+    width: 100%;
 }
 
 .item-container {
@@ -95,7 +109,20 @@
     padding-top: 2rem;
     padding-bottom: 2rem;
     overflow-y: auto;
-    position: relative;;
+    position: relative;
+    -webkit-animation: slide-from-top 0.5s linear;
+            animation: slide-from-top 0.5s linear;
+    z-index: 99;
+}
+
+@-webkit-keyframes slide-from-top {
+    0% { transform: translateY(-100px); }
+    100% { transform: translateY(0); }
+}
+
+@keyframes slide-from-top {
+    0% { transform: translateY(-100px); }
+    100% { transform: translateY(0); }
 }
 
 .item-close {

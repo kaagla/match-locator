@@ -1,0 +1,59 @@
+.map-layers-component {
+    color: black;
+    position: absolute;
+    top: 10px;
+    left: 7%;
+    z-index: 99;
+    max-height: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.layers-indicator {
+    align-self: flex-start;
+    cursor: pointer;
+    margin-bottom: 1rem;
+    font-size: 2rem;
+}
+
+.layers-sports {
+    display: flex;
+    flex-direction: column;
+    letter-spacing: 0.2rem;
+    backdrop-filter: blur(2px);
+}
+
+.sport-item,
+.sport-item-selected {
+    cursor: pointer;
+    margin-top: 0.2rem;
+}
+
+.sport-item {
+    opacity: 0.2;
+}
+
+.sport-item-selected {
+    opacity: 1;
+}
+
+.football-layer {
+    color: #c00;
+}
+
+.futsal-layer {
+    color: rgb(42, 129, 203);
+}
+
+.basketball-layer {
+    color: rgb(255, 94, 0);
+}
+
+.volleyball-layer {
+    color: rgb(233, 154, 6);
+}
+
+.handball-layer {
+    color: rgb(211, 101, 134);
+}

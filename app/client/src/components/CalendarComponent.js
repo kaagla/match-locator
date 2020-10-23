@@ -178,7 +178,6 @@ export default function Calendar(props) {
 
     useEffect(() => {
         
-        console.log(dateTo)
         document.getElementById(dateTo.split('-').slice(0,2).join('-')).scrollIntoView({behavior: "auto", block: "center"})           
         
     }, []);

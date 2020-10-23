@@ -24,7 +24,7 @@ def index():
 
 @app.route('/api/info', methods=['GET'])
 def getInfo():
-    info = list(db['info'].find({},{'_id': 0}))
+    info = list(db['info_all'].find({},{'_id': 0}))
     return jsonify(info)
 
 @app.route('/api/locations', methods=['GET'])
@@ -32,10 +32,10 @@ def getLocations():
 
     conds = {}
     if request.args.get('ids'):
-        ids = [int(x) for x in request.args.get('ids').split(',')]
+        ids = [x for x in request.args.get('ids').split(',') if x != 'Ei tiedossa']
         conds = { '_id': { '$in': ids } }
 
-    locations = list(db['locations'].find(conds))
+    locations = list(db['locations_all'].find(conds))
     return jsonify(locations)
 
 @app.route('/api/citycoordinates', methods=['POST'])
@@ -43,7 +43,7 @@ def getCityCoordinates():
 
     if request.json.get('city'):
         city = request.json.get('city')
-        city_coords = list(db['locations'].aggregate([
+        city_coords = list(db['locations_all'].aggregate([
             { '$match': {
                 'city': city['name']
             }},
@@ -69,7 +69,7 @@ def getCities():
             'type': 'city',
             'name': x
         }
-    for x in db['locations'].distinct('city') if type(x) == str]
+    for x in db['locations_all'].distinct('city') if (type(x) == str and x != 'Ei tiedossa')]
     
     return jsonify(cities)
 
@@ -102,35 +102,37 @@ def getMatches():
         
         if request.json.get('city'):
             for city in request.json.get('city'):
-                conds.append({ 'location.city': city['name'] })
+                conds.append({ 'city': city['name'] })
+
+        if request.json.get('sport'):
+            for sport in request.json.get('sport'):
+                conds.append({ 'sport': sport })
     
     if len(conds) == 0:
         conds = [{}]
     
-    matches = list(db['matches'].aggregate([
-        {'$lookup': {
-            'from': 'locations',
-            'localField': 'location_id',
-            'foreignField': '_id',
-            'as': 'location'
-        }},
-        {'$unwind': '$location'},
+    matches = list(db['matches_all'].aggregate([
         {'$match': {
             '$and': [
                 date_cond,
                 { '$or': conds}
             ]
         }},
+        {'$sort': {
+            'start_date': 1,
+            'time': 1
+        }},
         {'$project': {
             'date': 1,
             'time': 1,
             'venue_name': 1,
             'location_id': 1,
-            'city': '$location.city',
+            'city': 1,
             'level': 1,
             'home_name': 1,
             'away_name': 1,
-            'score': 1
+            'score': 1,
+            'sport': 1
         }}
     ]))
 
@@ -143,9 +145,14 @@ def getTeams():
         {
             'type': 'team',
             'name': x['_id'],
+            'sport': x['sport']
         }
-        for x in db['matches'].aggregate([
-            { '$group': { '_id': { '$concat': [ "$home_name", " - ", "$level" ] } } },
+        for x in db['matches_all'].aggregate([
+            { '$group': {
+                '_id': { '$concat': [ "$home_name", " - ", "$level" ] },
+                'sport': { '$first' : "$sport" }
+                }
+            },
             { '$sort': { '_id':  1} }
         ])
     ]
@@ -159,7 +166,7 @@ def getVenues():
             'type': 'venue',
             'name': x
         }
-    for x in db['matches'].distinct('venue_name')]
+    for x in db['matches_all'].distinct('venue_name')]
     
     return jsonify(venues)
 
@@ -169,9 +176,18 @@ def getLevels():
     levels = [
         {
             'type': 'level',
-            'name': x
+            'name': x['_id'],
+            'sport': x['sport']
         }
-    for x in db['matches'].distinct('level')]
+        for x in db['matches_all'].aggregate([
+            { '$group': {
+                '_id': "$level",
+                'sport': { '$first' : "$sport" }
+                }
+            },
+            { '$sort': { '_id':  1} }
+        ])
+    ]
 
     return jsonify(levels)
 
@@ -191,6 +207,8 @@ def getStandings():
             league = selected['name'].replace('ö','o').replace(' ','-').lower()
             if league == 'miesten-kakkonen':
                 league = 'kakkonen'
+            if 'futsal' in league:
+                league = league + '-0'
             url = 'https://www.palloliitto.fi/'+league
     else:
         if len(selected['name'].split(' - ')[1].split(' (')) > 1:
@@ -202,6 +220,8 @@ def getStandings():
             league = selected['name'].split(' - ')[1].replace('ö','o').replace(' ','-').lower()
             if league == 'miesten-kakkonen':
                 league = 'kakkonen'
+            if 'futsal' in league:
+                league = league + '-0'
             url = 'https://www.palloliitto.fi/'+league
             team = selected['name'].split(' - ')[0]
 

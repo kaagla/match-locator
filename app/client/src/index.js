@@ -14,7 +14,7 @@ import { citySearchReducer, itemSearchReducer } from './reducers/searchTextReduc
 import { matchesReducer, locationsReducer, isLoadingMatchesReducer } from './reducers/matchesReducer'
 import { dateFromReducer, dateToReducer } from './reducers/dateReducer'
 import { mapCenterReducer } from './reducers/mapReducer'
-import { filtersReducer, favouritesReducer, selectedLocationReducer,
+import { filtersReducer, sportsFiltersReducer, favouritesReducer, selectedLocationReducer,
   selectedItemReducer, searchConditionsReducer } from './reducers/selectionReducer'
 
 
@@ -35,7 +35,8 @@ const reducer = combineReducers({
   isLoadingMatches: isLoadingMatchesReducer,
   selectedLocation: selectedLocationReducer,
   selectedItem: selectedItemReducer,
-  searchConditions: searchConditionsReducer
+  searchConditions: searchConditionsReducer,
+  sportsFilters: sportsFiltersReducer
 })
 
 const store = createStore(reducer, applyMiddleware(thunk))

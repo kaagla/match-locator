@@ -1,0 +1,97 @@
+.sports-filters-component {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.sports-filters-items {
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+}
+
+.sports-filters-item {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 0.5rem;
+}
+
+.sports-filters-item-icon {
+    flex: 1;
+    text-align: center;
+}
+
+.sports-filters-item-name {
+    flex: 2;
+    text-align: left;
+}
+
+.sports-filters-item-toggle {
+    flex: 1;
+    width: 100%;
+}
+
+.toggle-switch {
+    position: relative;
+    display: inline-block;
+    width: 40px;
+    height: 20px;
+    border-radius: 34px;
+    cursor: pointer;
+}
+
+.toggle-switch-on {
+    background-color: #2196F3;
+}
+
+.toggle-switch-off {
+    background-color: #ccc;
+}
+
+.toggle-indicator-on {
+    position: absolute;
+    top: 2.5px;
+    right: 2.5px;
+    width: 15px;
+    height: 15px;
+    background-color: white;
+    border-radius: 50%;
+    -webkit-animation: slide-on 0.1s linear;
+            animation: slide-on 0.1s linear;
+}
+
+@-webkit-keyframes slide-on {
+    0% { right: 20.5px; }
+    100% { right: 2.5px; }
+}
+
+@keyframes slide-on {
+    0% { right: 20.5px; }
+    100% { right: 2.5px; }
+}
+
+.toggle-indicator-off {
+    position: absolute;
+    top: 2.5px;
+    left: 2.5px;
+    width: 15px;
+    height: 15px;
+    background-color: white;
+    border-radius: 50%;
+    -webkit-animation: slide-off 0.1s linear;
+            animation: slide-off 0.1s linear;
+}
+
+@-webkit-keyframes slide-off {
+    0% { left: 20.5px; }
+    100% { left: 2.5px; }
+}
+
+@keyframes slide-off {
+    0% { left: 20.5px; }
+    100% { left: 2.5px; }
+}

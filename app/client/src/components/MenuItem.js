@@ -12,7 +12,7 @@ export default function MenuItem(props) {
     return (
         <div className='menu-item-component'>
             <div
-                className='menu-item'
+                className={isOpen ? 'menu-item-selected':'menu-item'}
                 onClick={() => props.onClick ? props.onClick() : toggleItem()}
             >
                 <div className='menu-item-header'>

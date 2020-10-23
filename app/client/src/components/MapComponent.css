@@ -10,6 +10,23 @@
   /*max-width: 600px;*/
 }
 
+.loader-div {
+  position: absolute;
+  height: 99%;
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 99;
+  color: black;
+  letter-spacing: 0.2rem;
+  font-weight: 700;
+  backdrop-filter: blur(2px);
+  border: white solid 2px;
+  border-radius: 7px;
+}
+
 .leaflet-container {
   height: 100%;
   width: 90%;
@@ -38,14 +55,51 @@
   /*width: 20rem;*/
 }
 
+.location-sport {
+  margin-top: 1rem;
+  font-size: 1.4rem;
+  letter-spacing: 0.2rem;
+  text-align: center;
+}
+
 .matches-list {
   width: 200px;
-  background-color: rgb(245, 215, 177);
-  margin-top: 1rem;
-  padding-top: 1rem;
-  padding-bottom: 1rem;
   width: 100%;
   font: inherit;
+}
+
+.level-card {
+  margin-top: 1rem;
+  padding: 0.5rem;
+  background-color: rgb(245, 215, 177);
+}
+
+.level-card-title {
+  font-size: 1rem;
+  letter-spacing: 0.2rem;
+  text-align: center;
+  margin-bottom: 0.5rem;
+}
+
+.level-card-matches {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+
+.level-card-matches-home {
+  flex: 2;
+  text-align: left;
+}
+
+.level-card-matches-score {
+  flex: 1;
+  text-align: center;
+}
+
+.level-card-matches-away {
+  flex: 2;
+  text-align: right;
 }
 
 .matches-item {
@@ -71,4 +125,53 @@
 .map-container .icon-component--definition {
   letter-spacing: 0.1rem;
   font-size: 0.8rem;
+}
+
+.custom-marker {
+  text-align: center;
+  line-height: 30px;
+  font-size: 2rem;
+  /*color: rgba(42, 129, 203, 1);*/
+  
+  /*background-color: blue;*/
+  
+}
+
+.custom-marker-div {
+  background-color: rgba(246, 245, 243, 0.9);
+  border-radius: 50% 50% 50% 0;
+  border: solid 0.5px rgb(53, 91, 124);
+  transform: rotate(-45deg);
+  -webkit-transform: rotate(-45deg);
+  animation: ease-in 0.5s appear;
+  /*margin: -10px 0 0 -10px;*/
+}
+
+@keyframes appear {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.football-marker {
+  color: #c00;
+}
+
+.futsal-marker {
+  color: rgb(42, 129, 203);
+}
+
+.basketball-marker {
+  color: rgb(255, 94, 0);
+}
+
+.volleyball-marker {
+  color: rgb(233, 154, 6);
+}
+
+.handball-marker {
+  color: rgb(211, 101, 134);
 }

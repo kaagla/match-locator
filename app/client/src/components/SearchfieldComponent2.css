@@ -26,8 +26,8 @@
 .searchfield2-component input {
     padding: 0.5rem;
     width: 15rem;
-    -webkit-animation: searchfield 0.5s linear;
-            animation: searchfield 0.5s linear;
+    -webkit-animation: searchfield 0.4s linear;
+            animation: searchfield 0.4s linear;
 }
 
 @-webkit-keyframes searchfield {

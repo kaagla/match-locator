@@ -6,30 +6,42 @@ import { displayDMY } from '../services/dateService'
 export default function Info() {
 
     const { info } = useSelector(state => state)
-    console.log(info)
 
     return (
         <div className='info-component'>
             <div><h3>missä pelaa?</h3></div>
             <div>
-                "Jalkapallo-ottelut helposti kartalle."
+                "Ottelut helposti kartalle."
             </div>
-            <div>
-                <span>Ottelu-, lokaatio- ja sarjatilannetiedot on kerätty Suomen Palloliiton sivuilta</span>
-                <span className='info-link' onClick={() => window.open('https://www.palloliitto.fi')}> (www.palloliitto.fi).</span>                 
+            <div>Ottelu-, lokaatio- ja sarjatilannetiedot on kerätty lajiliittojen sivuilta *</div>
+            <div className='sports-details'>
+                <span className='info-link' onClick={() => window.open('https://www.palloliitto.fi')}>Jalkapallo ja futsal - palloliitto.fi</span>                 
+                <span className='info-link' onClick={() => window.open('https://www.basket.fi')}>Koripallo - basket.fi</span>
+                <span className='info-link' onClick={() => window.open('https://www.lentopalloliitto.fi')}>Lentopallo - lentopalloliitto.fi</span>
+                <span className='info-link' onClick={() => window.open('https://finnhandball.net/')}>Käsipallo - finnhandball.net</span>
+                
             </div>
             <div className='info-details'>
-                {info.updated ?
+                {info &&
                 <div>
-                <span>Ottelutietokanta päivitetty: {displayDMY(info.updated)}</span>
+                <div>Ottelutietokanta päivitetty</div>
+                <div className='info-details-sports'>
+                    <span>Jalkapallo - {displayDMY(info.football)}</span>
+                    <span>Futsal - {displayDMY(info.futsal)}</span>
+                    <span>Koripallo - {displayDMY(info.basketball)}</span>
+                    <span>Lentopallo - {displayDMY(info.volleyball)}</span>
+                    <span>Käsipallo - {displayDMY(info.handball)}</span>
                 </div>
-                : null
+                </div>
                 }
                 <div>
                     <span>{'Sovelluksen lähdekoodi: '}</span>
                     <span className='info-link' onClick={() => window.open('https://www.github.com/kaagla/match-locator')}>
                             <i className="fab fa-github"></i>
                     </span>
+                </div>
+                <div className='sports-details-info'>
+                    * Tiedoissa voi esiintyä virheitä.
                 </div>
             </div>
         </div>

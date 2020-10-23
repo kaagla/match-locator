@@ -25,14 +25,18 @@
     display: flex;
     flex-direction: row;
     justify-content: space-around;
+    background-color: rgba(0, 0, 0, 0.3);
 }
 
 .content-menu > * {
     flex: 1;
     height: 60px;
-    /*border: black solid 1px;*/
     text-align: center;
     cursor: pointer;
+}
+
+.content-menu .icon-component {
+    height: 57px;
 }
 
 .all-matches {

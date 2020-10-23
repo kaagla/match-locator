@@ -4,6 +4,7 @@ import { Link, useLocation } from 'react-router-dom'
 import './ContentMenuComponent.css'
 import IconDiv from './IconComponent'
 import { displayDates } from '../services/dateService'
+import { standingsEnabled } from '../services/enabledFeatures'
 
 export default function Content(props) {
 
@@ -29,6 +30,13 @@ export default function Content(props) {
                 <div>
                     {displayDates(searchConditions['dates'].split(',')[0],searchConditions['dates'].split(',')[1])}
                 </div>
+                {searchConditions['sportsFilters'] &&
+                <div>
+                    {searchConditions['sportsFilters'].map(sport =>
+                        <span>{sport} </span>
+                    )}
+                </div>
+                }
                 {searchConditions['filters'].map(filter =>
                     <div>{filter.name}</div>)}
                 </div>
@@ -67,7 +75,7 @@ export default function Content(props) {
                 </Link>
                 : null
                 }
-                {selectedItem ?
+                {selectedItem && standingsEnabled(selectedItem.sport, selectedItem.type) ?
                 <Link to='/standings' >
                     <div
                         className={location.pathname === '/standings' ? 'selected-menu-item':''}

@@ -6,6 +6,14 @@ export const setFilters = (filters) => {
     }
 }
 
+export const setSportsFilters = (sportsFilters) => {
+    window.localStorage.setItem('sportsFilters', JSON.stringify(sportsFilters))
+    return {
+        type: 'SET_SPORTS_FILTERS',
+        data: sportsFilters
+    }
+}
+
 export const setFavourites = (favourites) => {
     window.localStorage.setItem('favourites', JSON.stringify(favourites))
     return {

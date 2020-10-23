@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios';
+import { standingsEnabled } from '../services/enabledFeatures'
 import './MatchPreviewComponent.css';
 import IconDiv from './IconComponent'
 import StandingsTable from './StandingsTableComponent'
@@ -169,6 +170,7 @@ export default function MatchPreview(props) {
             </div>
             </div>
             }
+            {standingsEnabled(props.match.sport, 'team') ?
             <div
                 className='match-preview-component-icon'
                 onClick={() => getStandings()}
@@ -180,6 +182,7 @@ export default function MatchPreview(props) {
                     />
                 </div>
             </div>
+            : null}
             {standingsError ?
             <div>Sarjatilannetta ei saatavilla</div>
             :

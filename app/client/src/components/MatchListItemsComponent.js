@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import './MatchListItemsComponent.css';
 import CountBadge from './CountBadgeComponent'
 import MatchPreview from './MatchPreviewComponent'
+import { matchPreviewEnabled } from '../services/enabledFeatures'
 
 export default function MatchListItems(props) {
 
@@ -105,7 +106,7 @@ export default function MatchListItems(props) {
                         {props.groupbyItem !== 'level' ?
                         <div className='matchlist-component--match-details-level'>
                             <span><i className="fas fa-trophy"></i></span>
-                            <span>{match.level}</span>
+                            <span>{match.sport} - {match.level}</span>
                         </div>
                         : <span></span>
                         }
@@ -121,7 +122,7 @@ export default function MatchListItems(props) {
                             >{match.away_name}</div>
                         </div>
                     </div>
-                    {isUpcomingMatch(match.date) ?
+                    {matchPreviewEnabled(match.sport) && isUpcomingMatch(match.date) ?
                     <div className='matchlist-component--match-preview'>
                     <div 
                         className='matchlist-component--match-preview-btn'

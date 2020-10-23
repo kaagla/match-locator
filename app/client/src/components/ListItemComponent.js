@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { setFilters, setFavourites } from '../actions/selectionData'
 import { getMatchesData } from '../actions/matchesData'
+import { standingsEnabled } from '../services/enabledFeatures'
 import IconDiv from './IconComponent';
 import './ListItemComponent.css'
 
@@ -39,7 +40,7 @@ export default function ListItem(props) {
     }
 
     function getMatches(item) {
-        dispatch(getMatchesData('', [item]))
+        dispatch(getMatchesData('', [item], []))
         document.getElementById('content-menu').scrollIntoView({behavior: "smooth", block: "start"})
         props.handleClose()
     }
@@ -52,6 +53,11 @@ export default function ListItem(props) {
             >
                 <span>{props.item.name}</span>
                 <span><i className={selectionOpen ? 'arrow-up':'arrow-down'}></i></span>
+            </div>
+            <div className='list-item-component--header-sport'>
+                {props.item.sport ?
+                props.item.sport.toUpperCase()
+                : ''}
             </div>
             {selectionOpen ?
             <div className='list-item-component--options'>
@@ -91,7 +97,7 @@ export default function ListItem(props) {
                                 />
                             </span>
                         </Link>
-                        {['level','team'].includes(props.item.type) ?
+                        {standingsEnabled(props.item.sport, props.item.type) ?
                         <Link to='/standings'>
                             <span
                                 onClick={() => getMatches(props.item)}

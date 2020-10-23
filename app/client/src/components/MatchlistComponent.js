@@ -5,8 +5,8 @@ import MatchListItems from './MatchListItemsComponent';
 
 export default function MatchList(props) {
 
-    const [groupbyItem, setGroupByItem] = useState('date')
-    const matches = useSelector(state => state.matches)
+    const { matches, selectedItem } = useSelector(state => state)
+    const [groupbyItem, setGroupByItem] = useState('sport')
     const isLoadingMatches = useSelector(state => state.isLoadingMatches)
 
     let groupbySet = new Set([])
@@ -15,7 +15,19 @@ export default function MatchList(props) {
     })
 
     function sortedGroupbySet() {
-        return groupbyItem === 'date' ? Array.from(groupbySet) : Array.from(groupbySet).sort()
+        return ['date'].includes(groupbyItem) ? Array.from(groupbySet) : Array.from(groupbySet).sort()
+    }
+
+    function handleItemIsOpen(index) {
+        if (groupbySet.size === 1) {
+            return true
+        } else if (groupbyItem === 'sport') {
+            return false
+        } else if (index === 0) {
+            return true
+        } else {
+            return false
+        }
     }
 
     return (
@@ -34,6 +46,7 @@ export default function MatchList(props) {
                             value={groupbyItem}
                             onChange={(e) => setGroupByItem(e.target.value)}
                         >
+                            <option value="sport">Laji</option>
                             <option value="date">Päivämäärä</option>
                             <option value="level">Sarjataso</option>
                             <option value="city">Kaupunki</option>
@@ -48,7 +61,8 @@ export default function MatchList(props) {
                         header={header}
                         groupbyItem={groupbyItem}
                         matches={matches.filter(m => m[groupbyItem] === header)}
-                        itemIsOpen={index === 0 ? true : false}
+                        //itemIsOpen={groupbyItem === 'sport' ? false : index === 0 ? true : false}
+                        itemIsOpen={handleItemIsOpen(index)}
                     />
                 )}
                 </div>

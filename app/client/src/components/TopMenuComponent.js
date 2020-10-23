@@ -11,13 +11,14 @@ import Searchfield from './SearchfieldComponent2'
 import List from './ListComponent'
 import Calendar from './CalendarComponent'
 import Info from './InfoComponent'
+import SportsFilters from './SportsFiltersComponent'
 
 export default function TopMenu() {
 
     const [isMenuOpen, setIsMenuOpen] = useState(false)
     const [selectedItem, setSelectedItem] = useState(null)
     const [searchIsActive, setSearchIsActive] = useState(false)
-    const {itemSearchText, filters, favourites, dateFrom, dateTo, cities, levels, teams}  = useSelector(state => state)
+    const {itemSearchText, filters, sportsFilters, favourites, dateFrom, dateTo, cities, levels, teams}  = useSelector(state => state)
 
     const items = [...cities, ...levels, ...teams]
     const dispatch = useDispatch()
@@ -52,7 +53,7 @@ export default function TopMenu() {
 
     function getMatches() {
         const dates = dateFrom + ',' + dateTo
-        dispatch(getMatchesData(dates, filters))
+        dispatch(getMatchesData(dates, filters, sportsFilters))
         setIsMenuOpen(!isMenuOpen)
         history.push('/')
     }
@@ -61,7 +62,7 @@ export default function TopMenu() {
         <div className='top-menu-component'>
             <div className='top-menu-box'>
             <div className='top-menu-left'>
-                <div className='top-menu-left-title' onClick={() => handleSelect('info')}>missä pelaa?</div>
+                <div className={selectedItem === 'info' ? 'menu-items-btn-active':'menu-items-btn'} onClick={() => handleSelect('info')}>missä pelaa?</div>
             </div>
             <div
                 className='top-menu-center'
@@ -87,6 +88,11 @@ export default function TopMenu() {
                 <MenuItem icon={'calendar'} definition={displayDates(dateFrom,dateTo)}>
                     <Calendar />
                 </MenuItem>
+                <MenuItem icon={'filter'} definition={'LAJISUODATTIMET ' + sportsFilters.length}>
+                    <div className='menu-items-sports-filters'>
+                        <SportsFilters />
+                    </div>
+                </MenuItem>
                 <MenuItem icon={'filter'} definition={'SUODATTIMET ' + filters.length}>
                     {filters.length !== 0 ?
                     <List items={filters} handleClose={handleMenu} />
@@ -110,7 +116,7 @@ export default function TopMenu() {
                     <div className='item-close' onClick={() => handleClose()}>X</div>
                     {itemSearchText !== '' ?
                     <List
-                        items={items.filter(item => itemSearchText.split(' ').every(i => item.name.toLowerCase().includes(i.toLowerCase())))}
+                        items={items.filter(item => itemSearchText.split(' ').every(i => (item.name+' '+item.sport).toLowerCase().includes(i.toLowerCase())))}
                         handleClose={handleClose}
                     />
                     : <div className='search-instructions'>Etsi sarjaa, joukkuetta tai kaupunkia</div>

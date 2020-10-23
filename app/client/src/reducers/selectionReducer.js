@@ -5,6 +5,13 @@ function getInitialFilters() {
     return []
 }
 
+function getInitialSportsFilters() {
+    if (JSON.parse(window.localStorage.getItem('sportsFilters'))) {
+        return JSON.parse(window.localStorage.getItem('sportsFilters'))
+    }
+    return []
+}
+
 function getInitialFavourites() {
 
     if (JSON.parse(window.localStorage.getItem('favourites'))) {
@@ -16,6 +23,15 @@ function getInitialFavourites() {
 export const filtersReducer = (state = getInitialFilters(), action) => {
     switch (action.type) {
         case 'SET_FILTERS':
+            return action.data
+        default:
+            return state
+    }
+}
+
+export const sportsFiltersReducer = (state = getInitialSportsFilters(), action) => {
+    switch (action.type) {
+        case 'SET_SPORTS_FILTERS':
             return action.data
         default:
             return state

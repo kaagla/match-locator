@@ -6,6 +6,7 @@
     margin-bottom: 1rem;
     padding: 0.5rem;
     border-radius: 2px;
+    border: 1px solid rgb(233, 179, 109);
     color: black;
 }
 
@@ -13,6 +14,12 @@
     display: flex;
     justify-content: space-between;
     cursor: pointer;
+}
+
+.list-item-component--header-sport {
+    font-size: 1rem;
+    letter-spacing: 0.3rem;
+    font-weight: 700;
 }
 
 .list-item-component--options {

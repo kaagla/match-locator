@@ -20,7 +20,7 @@ import Standings from './components/StandingsComponent'
 
 function App() {
 
-  const { dateFrom, dateTo, filters, selectedItem, selectedLocation } = useSelector(state => state)
+  const { dateFrom, dateTo, filters, sportsFilters, selectedItem, selectedLocation } = useSelector(state => state)
 
   const dispatch = useDispatch()
 
@@ -29,7 +29,7 @@ function App() {
     dispatch(getInitialData('levels'))
     dispatch(getInitialData('teams'))
     dispatch(getInitialData('info'))
-    dispatch(getMatchesData(dateFrom+','+dateTo, filters))
+    dispatch(getMatchesData(dateFrom+','+dateTo, filters, sportsFilters))
   }, []);
 
 
