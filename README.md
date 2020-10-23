@@ -15,7 +15,7 @@ Future development plans:
 - New sports
 
 # Data collection
-- Football and futsal - palloliitto.fi
-- Basketball - basket.fi
-- Volleyball - lentopalloliitto.fi
-- Handball - finnhandball.net
+- Football and futsal - https://www.palloliitto.fi
+- Basketball - https://www.basket.fi/
+- Volleyball - https://www.lentopalloliitto.fi/
+- Handball - https://finnhandball.net/
