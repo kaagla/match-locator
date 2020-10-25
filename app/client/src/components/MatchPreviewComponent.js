@@ -60,12 +60,14 @@ export default function MatchPreview(props) {
         data['team'].push({ 'name': props.match.home_name + ' - ' + props.match.level })
         data['team'].push({ 'name': props.match.away_name + ' - ' + props.match.level })
 
+        data['include-locations'] = 'false'
+
         axios.post('/api/matches', data)
         .then(res => {
             if (res.data.length === 0) {
                 setMatchesError('Ei aiempia otteluita')
             } else {
-                setPreviousMatches(res.data)
+                setPreviousMatches(res.data.matches)
             }
         })
         .catch(error => {

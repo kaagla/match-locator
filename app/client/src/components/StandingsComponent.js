@@ -4,7 +4,7 @@ import axios from 'axios'
 import './StandingsComponent.css'
 import StandingsTable from './StandingsTableComponent'
 
-export default function Standings(props) {
+export default function Standings() {
 
     const item = useSelector(state => state.selectedItem)
     const [standings, setStandings] = useState([])

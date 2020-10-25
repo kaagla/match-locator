@@ -11,7 +11,7 @@ import * as serviceWorker from './serviceWorker';
 
 import { cityReducer, levelReducer, teamReducer, infoReducer } from './reducers/initialDataReducer'
 import { citySearchReducer, itemSearchReducer } from './reducers/searchTextReducer'
-import { matchesReducer, locationsReducer, isLoadingMatchesReducer } from './reducers/matchesReducer'
+import { matchesReducer, locationsReducer, isLoadingMatchesReducer, matchesLimitNotificationReducer } from './reducers/matchesReducer'
 import { dateFromReducer, dateToReducer } from './reducers/dateReducer'
 import { mapCenterReducer } from './reducers/mapReducer'
 import { filtersReducer, sportsFiltersReducer, favouritesReducer, selectedLocationReducer,
@@ -36,7 +36,8 @@ const reducer = combineReducers({
   selectedLocation: selectedLocationReducer,
   selectedItem: selectedItemReducer,
   searchConditions: searchConditionsReducer,
-  sportsFilters: sportsFiltersReducer
+  sportsFilters: sportsFiltersReducer,
+  matchesLimitNotification: matchesLimitNotificationReducer
 })
 
 const store = createStore(reducer, applyMiddleware(thunk))

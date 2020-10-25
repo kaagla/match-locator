@@ -34,47 +34,54 @@ export const getMatchesData = (dates, filters, sportsFilters) => async dispatch 
     searchData['sportsFilters'] = sportsFilters
     searchData['filters'] = filters
 
-    dispatch({
-      type: 'SET_SEARCH_CONDITIONS',
-      data: searchData
-    })
-
     let selectedItem = null
 
     if (filters.length === 1 && ['level','team'].includes(filters[0].type)) {
       selectedItem = filters[0]
     }
-
-    dispatch({
-      type: 'SET_SELECTED_ITEM',
-      data: selectedItem
-    })
     
-    const matches = await axios.post('/api/matches', data)
+    try {
+      const matches = await axios.post('/api/matches', data)
 
-    let locIds = new Set([])
-    matches.data.map(m => locIds.add(m.location_id))
-    const ids = Array.from(locIds)
-
-    let locations = {}
-    locations.data = []
-
-    if (ids.length > 0) {
-        locations = await axios.get('/api/locations?ids='+ids.join(','))
-    }
-
-    dispatch({
+      dispatch({
         type: 'ADD_MATCHES',
-        data: matches.data
-    })
+        data: matches.data.matches
+      })
 
-    dispatch({
-        type: 'ADD_LOCATIONS',
-        data: locations.data
-    })
-    
-    dispatch({
-      type: 'SET_IS_LOADING',
-      data: false
-    })
+      dispatch({
+          type: 'ADD_LOCATIONS',
+          data: matches.data.locations
+      })
+
+      dispatch({
+        type: 'SET_SEARCH_CONDITIONS',
+        data: searchData
+      })
+
+      dispatch({
+        type: 'SET_SELECTED_ITEM',
+        data: selectedItem
+      })
+
+      if (matches.data.matches.length === 1100) {
+        dispatch({
+          type: 'SET_MATCHES_LIMIT_NOTIFICATION',
+          data: true
+        })
+      }
+    } catch (error) {
+
+    } finally {
+      dispatch({
+        type: 'SET_IS_LOADING',
+        data: false
+      })
+    }
+}
+
+export const setMatchesLimitNotification = (selection) => {
+  return {
+      type: 'SET_MATCHES_LIMIT_NOTIFICATION',
+      data: selection
+  }
 }

@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { useHistory, Link } from 'react-router-dom'
 import { setSelectedLocation } from '../actions/selectionData'
 import { Map as LeafletMap, TileLayer, Marker, Popup, ZoomControl } from 'react-leaflet';
-import L, { Icon } from 'leaflet';
+import L from 'leaflet';
 import './MapComponent.css';
 import Locate from './LocateComponent'
 import LocationDetails from './LocationDetailsComponent'
@@ -114,7 +114,7 @@ export default function Map() {
 
     function handleSelectedSports(sport) {
         if (selectedSports.includes(sport)) {
-            setSelectedSports([...selectedSports].filter(s => s != sport))
+            setSelectedSports([...selectedSports].filter(s => s !== sport))
         } else {
             setSelectedSports([...selectedSports, sport])
         }
@@ -140,7 +140,7 @@ export default function Map() {
 
         return levels
     }
-    
+
     return (
         <div className='map-container'>
             {isLoadingMatches &&
@@ -178,10 +178,10 @@ export default function Map() {
                         <div className='location-sport'>{location.sport}</div>
                         <div className='matches-list'>
                             {matchesByLevel(matches.filter(m => m.location_id === location._id)).map(level =>
-                            <div className='level-card'>
+                            <div key={level.name} className='level-card'>
                             <div className='level-card-title'>{level.name}</div>
                             {level.matches.map(match =>
-                                <div className='level-card-matches'>
+                                <div key={match._id} className='level-card-matches'>
                                     <span className='level-card-matches-home'>{displayTeamName(match.home_name)}</span>
                                     <span className='level-card-matches-score'>{match.score.split(' ')[0]}</span>
                                     <span className='level-card-matches-away'>{displayTeamName(match.away_name)}</span>

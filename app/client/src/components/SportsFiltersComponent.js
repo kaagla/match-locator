@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { setSportsFilters } from '../actions/selectionData'
 import './SportsFiltersComponent.css'
@@ -11,7 +11,7 @@ export default function SportsFilters() {
 
     function handleSportsFilters(sport) {
         if (sportsFilters.includes(sport)) {
-            dispatch(setSportsFilters([...sportsFilters].filter(f => f != sport)))
+            dispatch(setSportsFilters([...sportsFilters].filter(f => f !== sport)))
         } else {
             dispatch(setSportsFilters([...sportsFilters, sport]))
         }

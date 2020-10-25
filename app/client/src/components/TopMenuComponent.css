@@ -87,6 +87,7 @@
 
 .menu-items-sports-filters {
     width: 100%;
+    height: fit-content;
 }
 
 .item-container {

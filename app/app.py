@@ -122,6 +122,7 @@ def getMatches():
             'start_date': 1,
             'time': 1
         }},
+        {'$limit': 1100},
         {'$project': {
             'date': 1,
             'time': 1,
@@ -136,7 +137,35 @@ def getMatches():
         }}
     ]))
 
-    return jsonify(matches)
+    data = {}
+    data['matches'] = matches
+
+    include_locations = True
+
+    if request.json.get('include-locations'):
+        if request.json.get('include-locations') == 'false':
+            include_locations = False
+
+    if include_locations:
+        loc_ids = list(set([x['location_id'] for x in matches if x['location_id'] != 'Ei tiedossa']))
+
+        locations = list(db['locations_all'].find({
+            '_id': { '$in': loc_ids } 
+            },
+            {
+                '_id': 1,
+                'address': 1,
+                'postalcode': 1,
+                'city': 1,
+                'lat': 1,
+                'lon': 1,
+                'sport': 1
+            }
+        ))
+
+        data['locations'] = locations    
+
+    return jsonify(data)
 
 @app.route('/api/teams')
 def getTeams():

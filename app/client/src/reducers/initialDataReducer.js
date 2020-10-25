@@ -27,7 +27,7 @@ export const teamReducer = (state = initialState, action) => {
     }
 }
 
-export const infoReducer = (state = initialState, action) => {
+export const infoReducer = (state = null, action) => {
     switch (action.type) {
         case 'ADD_INFO':
             return action.data

@@ -26,3 +26,12 @@ export const isLoadingMatchesReducer = (state = false, action) => {
             return state
     }
 }
+
+export const matchesLimitNotificationReducer = (state = false, action) => {
+    switch (action.type) {
+        case 'SET_MATCHES_LIMIT_NOTIFICATION':
+            return action.data
+        default:
+            return state
+    }
+}

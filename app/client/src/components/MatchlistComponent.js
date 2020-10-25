@@ -5,7 +5,7 @@ import MatchListItems from './MatchListItemsComponent';
 
 export default function MatchList(props) {
 
-    const { matches, selectedItem } = useSelector(state => state)
+    const { matches } = useSelector(state => state)
     const [groupbyItem, setGroupByItem] = useState('sport')
     const isLoadingMatches = useSelector(state => state.isLoadingMatches)
 

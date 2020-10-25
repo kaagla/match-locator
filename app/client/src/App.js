@@ -13,6 +13,7 @@ import Map from './components/MapComponent'
 import TopMenu from './components/TopMenuComponent'
 import ContentMenu from './components/ContentMenuComponent'
 import Content from './components/ContentComponent'
+import Notification from './components/NotificationComponent'
 
 import Matchlist from './components/MatchlistComponent'
 import LocationMatchlist from './components/LocationMatchlistComponent'
@@ -20,7 +21,7 @@ import Standings from './components/StandingsComponent'
 
 function App() {
 
-  const { dateFrom, dateTo, filters, sportsFilters, selectedItem, selectedLocation } = useSelector(state => state)
+  const { dateFrom, dateTo, filters, sportsFilters, selectedItem, selectedLocation, matchesLimitNotification } = useSelector(state => state)
 
   const dispatch = useDispatch()
 
@@ -32,13 +33,13 @@ function App() {
     dispatch(getMatchesData(dateFrom+','+dateTo, filters, sportsFilters))
   }, []);
 
-
   return(
     <div className='App'>
       <Router>
         <TopMenu />
         <Map />
         <ContentMenu />
+        {matchesLimitNotification && <Notification />}
         <Switch>
           <Route
             exact path='/'
@@ -46,11 +47,11 @@ function App() {
           />
           <Route
             exact path='/locationmatchlist'
-            render={() => selectedLocation ? <Content><LocationMatchlist /></Content> : null} 
+            render={() => selectedLocation && <Content><LocationMatchlist /></Content>} 
           />
           <Route
             exact path='/standings'
-            render={() => selectedItem ? <Content><Standings /></Content> : null} 
+            render={() => selectedItem && <Content><Standings /></Content>} 
           />
         </Switch>
       </Router>

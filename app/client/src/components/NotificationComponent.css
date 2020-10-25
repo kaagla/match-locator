@@ -1,0 +1,36 @@
+.notification-component {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+    background-color: rgba(0, 0, 0, 0.4);
+    z-index: 101;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+  
+.notification-box {
+    position: relative;
+    height: 10rem;
+    width: 20rem;
+    border-radius: 7px;
+    background-color: white;
+    color: black;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+}
+  
+.box-close {
+    color: black;
+    font-size: 2rem;
+    cursor: pointer;
+    position: absolute;
+    top: 0;
+    right: 5%;
+}
