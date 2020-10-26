@@ -15,7 +15,7 @@
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    height: 10%;
+    margin-bottom: 1rem;
 }
 
 .locate-close-btn {
@@ -31,5 +31,5 @@
     max-height: 60%;
     padding: 1rem;
     overflow-y: auto;
-    margin-top: 2rem;
+    /*margin-top: 2rem;*/
 }

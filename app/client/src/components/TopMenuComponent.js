@@ -84,29 +84,31 @@ export default function TopMenu() {
             </div>
             {isMenuOpen ?
             <div className='menu-items'>
-                <MenuItem icon={'redo'} definition={'PÄIVITÄ HAKU'} onClick={() => getMatches()} />
-                <MenuItem icon={'calendar'} definition={displayDates(dateFrom,dateTo)}>
-                    <Calendar />
-                </MenuItem>
-                <MenuItem icon={'filter'} definition={'LAJISUODATTIMET ' + sportsFilters.length}>
-                    <div className='menu-items-sports-filters'>
-                        <SportsFilters />
-                    </div>
-                </MenuItem>
-                <MenuItem icon={'filter'} definition={'SUODATTIMET ' + filters.length}>
-                    {filters.length !== 0 ?
-                    <List items={filters} handleClose={handleMenu} />
-                    :
-                    <div className='no-items'>Lisää suodattimia hakutoiminnolla.</div>
-                    }
-                </MenuItem>
-                <MenuItem icon={'star'} definition={'SUOSIKIT ' + favourites.length}>
-                    {favourites.length !== 0 ?
-                    <List items={favourites} handleClose={handleMenu} />
-                    :
-                    <div className='no-items'>Lisää suosikkeja hakutoiminnolla.</div>
-                    }
-                </MenuItem>
+                <div className='menu-items-content'>
+                    <MenuItem icon={'redo'} definition={'PÄIVITÄ HAKU'} onClick={() => getMatches()} />
+                    <MenuItem icon={'calendar'} definition={displayDates(dateFrom,dateTo)}>
+                        <Calendar />
+                    </MenuItem>
+                    <MenuItem icon={'filter'} definition={'LAJISUODATTIMET ' + sportsFilters.length}>
+                        <div className='menu-items-sports-filters'>
+                            <SportsFilters />
+                        </div>
+                    </MenuItem>
+                    <MenuItem icon={'filter'} definition={'SUODATTIMET ' + filters.length}>
+                        {filters.length !== 0 ?
+                        <List items={filters} handleClose={handleMenu} />
+                        :
+                        <div className='no-items'>Lisää suodattimia hakutoiminnolla.</div>
+                        }
+                    </MenuItem>
+                    <MenuItem icon={'star'} definition={'SUOSIKIT ' + favourites.length}>
+                        {favourites.length !== 0 ?
+                        <List items={favourites} handleClose={handleMenu} />
+                        :
+                        <div className='no-items'>Lisää suosikkeja hakutoiminnolla.</div>
+                        }
+                    </MenuItem>
+                </div>
             </div>
             : null
             }
