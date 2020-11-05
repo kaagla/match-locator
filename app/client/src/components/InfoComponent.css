@@ -1,10 +1,13 @@
 .info-component {
     width: 90%;
     margin-left: 5%;
+    margin-right: 5%;
+    margin-top: 2rem;
     display: flex;
     flex-direction: column;
     color: black;
     padding-bottom: 5rem;
+    overflow-y: auto;
 }
 
 .info-component > * {
@@ -12,6 +15,7 @@
 }
 
 .info-link {
+    width: fit-content;
     cursor: pointer;
 }
 
