@@ -1,46 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import { createStore, combineReducers, applyMiddleware } from 'redux'
-import thunk from 'redux-thunk'
 import { Provider } from 'react-redux'
+import { store } from './store'
 
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-
-import { cityReducer, levelReducer, teamReducer, infoReducer } from './reducers/initialDataReducer'
-import { citySearchReducer, itemSearchReducer } from './reducers/searchTextReducer'
-import { matchesReducer, locationsReducer, isLoadingMatchesReducer, matchesLimitNotificationReducer } from './reducers/matchesReducer'
-import { dateFromReducer, dateToReducer } from './reducers/dateReducer'
-import { mapCenterReducer } from './reducers/mapReducer'
-import { filtersReducer, sportsFiltersReducer, favouritesReducer, selectedLocationReducer,
-  selectedItemReducer, searchConditionsReducer } from './reducers/selectionReducer'
-
-
-const reducer = combineReducers({
-  cities: cityReducer,
-  levels: levelReducer,
-  teams: teamReducer,
-  info: infoReducer,
-  citySearchText: citySearchReducer,
-  itemSearchText: itemSearchReducer,
-  matches: matchesReducer,
-  locations: locationsReducer,
-  dateFrom: dateFromReducer,
-  dateTo: dateToReducer,
-  mapCenter: mapCenterReducer,
-  filters: filtersReducer,
-  favourites: favouritesReducer,
-  isLoadingMatches: isLoadingMatchesReducer,
-  selectedLocation: selectedLocationReducer,
-  selectedItem: selectedItemReducer,
-  searchConditions: searchConditionsReducer,
-  sportsFilters: sportsFiltersReducer,
-  matchesLimitNotification: matchesLimitNotificationReducer
-})
-
-const store = createStore(reducer, applyMiddleware(thunk))
 
 ReactDOM.render(
   <Provider store={store}>

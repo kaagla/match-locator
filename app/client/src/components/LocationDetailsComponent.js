@@ -18,7 +18,7 @@ export default function LocationDetails(props) {
                     {location.address}
                 </div>
                 <div>
-                    {location.postalcode} {location.city}
+                    {location.postalcode} {location.postoffice}
                 </div>
             </div>
             <div

@@ -22,7 +22,8 @@
   color: black;
   letter-spacing: 0.2rem;
   font-weight: 700;
-  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+          backdrop-filter: blur(2px);
   border: white solid 2px;
   border-radius: 7px;
 }
@@ -131,10 +132,6 @@
   text-align: center;
   line-height: 30px;
   font-size: 2rem;
-  /*color: rgba(42, 129, 203, 1);*/
-  
-  /*background-color: blue;*/
-  
 }
 
 .custom-marker-div {
@@ -143,8 +140,17 @@
   border: solid 0.5px rgb(53, 91, 124);
   transform: rotate(-45deg);
   -webkit-transform: rotate(-45deg);
-  animation: ease-in 0.5s appear;
-  /*margin: -10px 0 0 -10px;*/
+  -webkit-animation: ease-in 0.5s appear;
+          animation: ease-in 0.5s appear;
+}
+
+@-webkit-keyframes appear {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
 @keyframes appear {

@@ -49,7 +49,7 @@ export default function MatchList(props) {
                             <option value="sport">Laji</option>
                             <option value="date">Päivämäärä</option>
                             <option value="level">Sarjataso</option>
-                            <option value="city">Kaupunki</option>
+                            <option value="postoffice">Alue</option>
                             <option value="venue_name">Kenttä</option>
                         </select>
                      </div>
@@ -61,7 +61,6 @@ export default function MatchList(props) {
                         header={header}
                         groupbyItem={groupbyItem}
                         matches={matches.filter(m => m[groupbyItem] === header)}
-                        //itemIsOpen={groupbyItem === 'sport' ? false : index === 0 ? true : false}
                         itemIsOpen={handleItemIsOpen(index)}
                     />
                 )}

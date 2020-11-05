@@ -8,23 +8,30 @@ import './TopMenuComponent.css'
 import MenuItem from './MenuItem'
 import IconDiv from './IconComponent'
 import Searchfield from './SearchfieldComponent2'
-import List from './ListComponent'
 import Calendar from './CalendarComponent'
 import Info from './InfoComponent'
-import SportsFilters from './SportsFiltersComponent'
+import FilterGroup from './FilterGroup'
+import SearchList from './SearchList'
 
 export default function TopMenu() {
 
     const [isMenuOpen, setIsMenuOpen] = useState(false)
     const [selectedItem, setSelectedItem] = useState(null)
     const [searchIsActive, setSearchIsActive] = useState(false)
-    const {itemSearchText, filters, sportsFilters, favourites, dateFrom, dateTo, cities, levels, teams}  = useSelector(state => state)
+    const [numItems, setNumItems] = useState(20)
+    const {itemSearchText, dateFrom, dateTo,
+        areas, levels, teams, selectedFilters, visibleFilters}  = useSelector(state => state)
 
-    const items = [...cities, ...levels, ...teams]
+    const items = [...areas, ...levels, ...teams]
     const dispatch = useDispatch()
     const history = useHistory()
 
+    function showMoreItems() {
+        setNumItems(numItems + 20)
+    }
+
     function handleText(text) {
+        setNumItems(20)
         dispatch(setItemSearchText(text))
     }
 
@@ -33,29 +40,49 @@ export default function TopMenu() {
     }
 
     function handleMenu() {
-        setIsMenuOpen(!isMenuOpen)
+        if (isMenuOpen === true) {
+            document.getElementById('menu-items').className = 'menu-items-on-close'
+            setTimeout(() => { setIsMenuOpen(!isMenuOpen) }, 400)
+        } else {
+            setIsMenuOpen(!isMenuOpen)
+        } 
     }
 
     function handleSelect(item) {
         if (item === selectedItem && item !== 'search') {
-            setSelectedItem(null)
+            document.getElementById('item-box').className = 'item-box-on-close'
+            setTimeout(() => {
+                if (searchIsActive) {
+                    setSearchIsActive(false)
+                }
+                setSelectedItem(null)
+            }, 400)
         } else {
             setSelectedItem(item)
         } 
     }
 
     function handleClose() {
-        if (searchIsActive) {
-            setSearchIsActive(false)
-        }
-        setSelectedItem(null)
+        document.getElementById('item-box').className = 'item-box-on-close'
+            setTimeout(() => {
+                if (searchIsActive) {
+                    setSearchIsActive(false)
+                }
+                setSelectedItem(null)
+            }, 400)
     }
 
     function getMatches() {
         const dates = dateFrom + ',' + dateTo
-        dispatch(getMatchesData(dates, filters, sportsFilters))
+        dispatch(getMatchesData(dates, selectedFilters))
         setIsMenuOpen(!isMenuOpen)
         history.push('/')
+    }
+
+    function displayCount(typeList) {
+        const selected = selectedFilters.filter(f => typeList.includes(f.type)).length
+        const visible = visibleFilters.filter(f => typeList.includes(f.type)).length
+        return selected + ' / ' + visible
     }
 
     return (
@@ -74,7 +101,7 @@ export default function TopMenu() {
                     handleSelect={handleSelect}
                     icon={'search'}
                     isActive={searchIsActive}
-                    definition={'Etsi sarjaa, joukkuetta tai kaupunkia'}
+                    definition={'Etsi sarjaa, joukkuetta tai aluetta'}
                 />
             </div>
             <div className='top-menu-right'>
@@ -82,86 +109,87 @@ export default function TopMenu() {
                     <IconDiv icon={'sliders-h'} definition={'HAKUVALINNAT'} />
                 </span>
             </div>
-            {isMenuOpen ?
-            <div className='menu-items'>
+            {isMenuOpen &&
+            <div id='menu-items' className='menu-items'>
                 <div className='menu-items-content'>
                     <MenuItem icon={'redo'} definition={'PÄIVITÄ HAKU'} onClick={() => getMatches()} />
                     <MenuItem icon={'calendar'} definition={displayDates(dateFrom,dateTo)}>
                         <Calendar />
                     </MenuItem>
-                    <MenuItem icon={'filter'} definition={'LAJISUODATTIMET ' + sportsFilters.length}>
-                        <div className='menu-items-sports-filters'>
-                            <SportsFilters />
+                    <MenuItem icon={'map-marked-alt'} definition='ALUEET' count={displayCount(['grandarea','municipality','postoffice'])}>
+                        <div className='menu-items-filter-group'>
+                            <FilterGroup
+                                useDefaultFilters={true}
+                                defaultFilterTypes={['grandarea']}
+                                useNewFilters={true}
+                                newFilterTypes={['municipality','postoffice']}
+                                notification={'alueita'}
+                                handleClose={handleMenu}
+                            />
                         </div>
                     </MenuItem>
-                    <MenuItem icon={'filter'} definition={'SUODATTIMET ' + filters.length}>
-                        {filters.length !== 0 ?
-                        <List items={filters} handleClose={handleMenu} />
-                        :
-                        <div className='no-items'>Lisää suodattimia hakutoiminnolla.</div>
-                        }
+                    <MenuItem icon={'running'} definition='LAJIT' count={displayCount(['sport'])}>
+                        <div className='menu-items-filter-group'>
+                            <FilterGroup
+                                useDefaultFilters={true}
+                                defaultFilterTypes={['sport']}
+                                useNewFilters={false}
+                                handleClose={handleMenu}
+                            />
+                        </div>
                     </MenuItem>
-                    <MenuItem icon={'star'} definition={'SUOSIKIT ' + favourites.length}>
-                        {favourites.length !== 0 ?
-                        <List items={favourites} handleClose={handleMenu} />
-                        :
-                        <div className='no-items'>Lisää suosikkeja hakutoiminnolla.</div>
-                        }
+                    <MenuItem icon={'trophy'} definition='SARJAT' count={displayCount(['level'])}>
+                        <div className='menu-items-filter-group'>
+                            <FilterGroup
+                                useDefaultFilters={false}
+                                useNewFilters={true}
+                                newFilterTypes={['level']}
+                                notification={'sarjoja'}
+                                handleClose={handleMenu}
+                            />
+                        </div>
+                    </MenuItem>
+                    <MenuItem icon={'users'} definition='JOUKKUEET' count={displayCount(['team'])}>
+                        <div className='menu-items-filter-group'>
+                            <FilterGroup
+                                useDefaultFilters={false}
+                                useNewFilters={true}
+                                newFilterTypes={['team']}
+                                notification={'joukkueita'}
+                                handleClose={handleMenu}
+                            />
+                        </div>
                     </MenuItem>
                 </div>
             </div>
-            : null
             }
-            {selectedItem === 'search' ?
+            {selectedItem === 'search' &&
             <div className='item-container'>
-                <div className='item-box'>
-                    <div className='item-close' onClick={() => handleClose()}>X</div>
+                <div id='item-box' className='item-box'>
+                    <div className='item-close' onClick={() => handleClose()}>
+                        <i class="fas fa-times-circle"></i>
+                    </div>
                     {itemSearchText !== '' ?
-                    <List
+                    <SearchList
                         items={items.filter(item => itemSearchText.split(' ').every(i => (item.name+' '+item.sport).toLowerCase().includes(i.toLowerCase())))}
                         handleClose={handleClose}
+                        numItems={numItems}
+                        showMoreItems={showMoreItems}
                     />
-                    : <div className='search-instructions'>Etsi sarjaa, joukkuetta tai kaupunkia</div>
+                    : <div className='search-instructions'>Etsi sarjaa, joukkuetta tai aluetta</div>
                     }
                 </div>
-                
-                
             </div>
-            :
-            <span></span>
             }
-
-            {selectedItem === 'info' ?
+            {selectedItem === 'info' &&
             <div className='item-container'>
-                <div className='item-box'>
-                    <div className='item-close' onClick={() => handleClose()}>X</div>
+                <div id='item-box' className='item-box'>
+                    <div className='item-close' onClick={() => handleClose()}>
+                        <i class="fas fa-times-circle"></i>
+                    </div>
                     <Info />
                 </div>
             </div>
-            :
-            <span></span>
-            }
-
-            {selectedItem === 'filters' ?
-            <div className='item-container'>
-                <div className='item-box'>
-                    <div className='item-close' onClick={() => handleClose()}>X</div>
-                    <List items={filters} />
-                </div>
-            </div>
-            :
-            <span></span>
-            }
-
-            {selectedItem === 'favourites' ?
-            <div className='item-container'>
-                <div className='item-box'>
-                    <div className='item-close' onClick={() => handleClose()}>X</div>
-                    <List items={favourites} />
-                </div>
-            </div>
-            :
-            <span></span>
             }
             </div>
         </div>

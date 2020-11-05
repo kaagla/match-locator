@@ -21,16 +21,16 @@ import Standings from './components/StandingsComponent'
 
 function App() {
 
-  const { dateFrom, dateTo, filters, sportsFilters, selectedItem, selectedLocation, matchesLimitNotification } = useSelector(state => state)
+  const { dateFrom, dateTo, selectedFilters, selectedItem, selectedLocation, matchesLimitNotification } = useSelector(state => state)
 
   const dispatch = useDispatch()
 
   useEffect(() => {
-    dispatch(getInitialData('cities'))
+    dispatch(getInitialData('areas'))
     dispatch(getInitialData('levels'))
     dispatch(getInitialData('teams'))
     dispatch(getInitialData('info'))
-    dispatch(getMatchesData(dateFrom+','+dateTo, filters, sportsFilters))
+    dispatch(getMatchesData(dateFrom+','+dateTo, selectedFilters))
   }, []);
 
   return(

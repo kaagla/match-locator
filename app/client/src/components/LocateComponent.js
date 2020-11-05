@@ -3,7 +3,7 @@ import {useSelector, useDispatch} from 'react-redux'
 import { setCitySearchText } from '../actions/searchText'
 import './LocateComponent.css'
 import Searchfield from './SearchfieldComponent2'
-import Citylist from './CitylistComponent'
+import AreaList from './AreaList'
 
 export default function Locate() {
 
@@ -29,29 +29,27 @@ export default function Locate() {
             <div className='locate-search'>
                 <div onClick={() => activateSearch()}>
                 <Searchfield
-                    value={citySearchText}
+                    searchText={citySearchText}
                     handleText={handleText}
                     icon={'eye'}
                     handleSelect={() => {}}
                     isActive={isOpen}
                 />
                 </div>
-                {isOpen ?
+                {isOpen &&
                 <div
                     className='locate-close-btn'
                     onClick={() => closeSearch()}
-                >X</div>
-                : null}
+                >
+                    <i className='fas fa-times'></i>
+                </div>
+                }
             </div>
-            {isOpen ?
+            {isOpen &&
             <div
                 className='locate-list'
             >
-                <Citylist />
-            </div>
-            :
-            <div>
-
+                <AreaList />
             </div>
             }
         </div>

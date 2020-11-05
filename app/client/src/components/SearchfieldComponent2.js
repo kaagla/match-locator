@@ -5,7 +5,7 @@ export default function Searchfield(props) {
 
     return (
         <div className='searchfield2-component'>
-            <div className='searchfield2-items'>
+            <div className={props.isActive ? 'searchfield2-items':'searchfield2-items-iconmode'}>
                 <i className={`fas fa-${props.icon} icon`}></i>
                 {props.isActive ?
                 <input

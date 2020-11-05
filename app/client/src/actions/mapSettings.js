@@ -7,10 +7,13 @@ export const setMapCenter = (item) => async dispatch => {
             type: 'SET_MAP_CENTER',
             data: {'city': 'Suomi', 'lat': 63, 'lon': 25}
         })
-    } else {
-        const city = { 'city': {...item}}
-  
-        const res = await axios.post('/api/citycoordinates', city)
+    } else {        
+        const type_name = item['type']
+
+        const area = {}
+        area[type_name] = {...item}
+
+        const res = await axios.post('/api/areacoordinates', area)
         
         dispatch({
             type: 'SET_MAP_CENTER',

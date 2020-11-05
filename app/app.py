@@ -35,21 +35,21 @@ def getLocations():
         ids = [x for x in request.args.get('ids').split(',') if x != 'Ei tiedossa']
         conds = { '_id': { '$in': ids } }
 
-    locations = list(db['locations_all'].find(conds))
+    locations = list(db['locations'].find(conds))
     return jsonify(locations)
 
-@app.route('/api/citycoordinates', methods=['POST'])
-def getCityCoordinates():
+@app.route('/api/areacoordinates', methods=['POST'])
+def getAreaCoordinates():
 
-    if request.json.get('city'):
-        city = request.json.get('city')
-        city_coords = list(db['locations_all'].aggregate([
+    if request.json.get('municipality'):
+        municipality = request.json.get('municipality')
+        municipality_coords = list(db['locations'].aggregate([
             { '$match': {
-                'city': city['name']
+                'municipality': municipality['name']
             }},
             { '$group': {
                     '_id': 0,
-                    'city': { '$first': '$city' },
+                    'municipality': { '$first': '$municipality' },
                     'lat': { '$avg': '$lat' },
                     'lon': { '$avg': '$lon' }
                 }
@@ -58,20 +58,51 @@ def getCityCoordinates():
                 '_id': 0
             }}
         ]))
+        return jsonify(municipality_coords)
 
-    return jsonify(city_coords)
+    elif request.json.get('postoffice'):
+        postoffice = request.json.get('postoffice')
+        postoffice_coords = list(db['locations'].aggregate([
+            { '$match': {
+                'postoffice': postoffice['name']
+            }},
+            { '$group': {
+                    '_id': 0,
+                    'postoffice': { '$first': '$postoffice' },
+                    'lat': { '$avg': '$lat' },
+                    'lon': { '$avg': '$lon' }
+                }
+            },
+            { '$project': {
+                '_id': 0
+            }}
+        ]))
+        return jsonify(postoffice_coords)
 
-@app.route('/api/cities')
-def getCities():
+    return jsonify([])
+
+@app.route('/api/areas')
+def getAreas():
     
-    cities = [
+    municipalities = [
         {
-            'type': 'city',
+            'type': 'municipality',
             'name': x
         }
-    for x in db['locations_all'].distinct('city') if (type(x) == str and x != 'Ei tiedossa')]
+    for x in db['locations'].distinct('municipality') if (type(x) == str and x != 'Ei tiedossa')]
+
+    municipality_list = [x['name'] for x in municipalities]
+
+    postoffices = [
+        {
+            'type': 'postoffice',
+            'name': x
+        }
+    for x in db['locations'].distinct('postoffice') if (type(x) == str and x != 'Ei tiedossa' and x not in municipality_list)]
     
-    return jsonify(cities)
+    areas = sorted(municipalities + postoffices, key=lambda x: x['name'])
+
+    return jsonify(areas)
 
 @app.route('/api/matches', methods=['POST'])
 def getMatches():
@@ -91,27 +122,42 @@ def getMatches():
            
         if request.json.get('team'):
             for team in request.json.get('team'):
-                team_name, level = team['name'].split(' - ')
-                conds.append({ '$and': [ { 'home_name': team_name }, { 'level': level } ]})
-                conds.append({ '$and': [ { 'away_name': team_name }, { 'level': level } ]})
+                team_name, level, sport = team['name'].split(' - ')
+                conds.append({ '$and': [ { 'home_name': team_name }, { 'level': level }, { 'sport': sport } ]})
+                conds.append({ '$and': [ { 'away_name': team_name }, { 'level': level }, { 'sport': sport } ]})
          
         if request.json.get('level'):
             for level in request.json.get('level'):
-                conds.append({ 'level': level['name'] })
-
-        
-        if request.json.get('city'):
-            for city in request.json.get('city'):
-                conds.append({ 'city': city['name'] })
+                name, sport = level['name'].split(' - ')
+                conds.append({ '$and': [ { 'level': name }, { 'sport': sport } ]})
 
         if request.json.get('sport'):
             for sport in request.json.get('sport'):
-                conds.append({ 'sport': sport })
+                conds.append({ 'sport': sport['name'] })
+
+        if request.json.get('municipality'):
+            for municipality in request.json.get('municipality'):
+                conds.append({ 'location.municipality': municipality['name'] })
+
+        if request.json.get('postoffice'):
+            for postoffice in request.json.get('postoffice'):
+                conds.append({ 'location.postoffice': postoffice['name'] })
+
+        if request.json.get('grandarea'):
+            for grandarea in request.json.get('grandarea'):
+                conds.append({ 'location.grandarea': grandarea['name'] })
     
     if len(conds) == 0:
         conds = [{}]
     
     matches = list(db['matches_all'].aggregate([
+        {'$lookup': {
+            'from': 'locations',
+            'localField': 'location_id',
+            'foreignField': '_id',
+            'as': 'location'
+        }},
+        {'$unwind': '$location'},
         {'$match': {
             '$and': [
                 date_cond,
@@ -128,7 +174,7 @@ def getMatches():
             'time': 1,
             'venue_name': 1,
             'location_id': 1,
-            'city': 1,
+            'postoffice': '$location.postoffice',
             'level': 1,
             'home_name': 1,
             'away_name': 1,
@@ -149,14 +195,14 @@ def getMatches():
     if include_locations:
         loc_ids = list(set([x['location_id'] for x in matches if x['location_id'] != 'Ei tiedossa']))
 
-        locations = list(db['locations_all'].find({
+        locations = list(db['locations'].find({
             '_id': { '$in': loc_ids } 
             },
             {
                 '_id': 1,
                 'address': 1,
                 'postalcode': 1,
-                'city': 1,
+                'postoffice': 1,
                 'lat': 1,
                 'lon': 1,
                 'sport': 1
@@ -178,7 +224,7 @@ def getTeams():
         }
         for x in db['matches_all'].aggregate([
             { '$group': {
-                '_id': { '$concat': [ "$home_name", " - ", "$level" ] },
+                '_id': { '$concat': [ "$home_name", " - ", "$level", " - ", "$sport" ] },
                 'sport': { '$first' : "$sport" }
                 }
             },
@@ -210,11 +256,11 @@ def getLevels():
         }
         for x in db['matches_all'].aggregate([
             { '$group': {
-                '_id': "$level",
+                '_id': { '$concat': [ "$level", " - ", "$sport" ] },
                 'sport': { '$first' : "$sport" }
                 }
             },
-            { '$sort': { '_id':  1} }
+            { '$sort': { '_id':  1 } }
         ])
     ]
 
@@ -229,11 +275,11 @@ def getStandings():
 
     if selected['type'] == 'level':
         if len(selected['name'].split(' (')) > 1:
-            region = 'spl'+selected['name'].split(' (')[1].replace('ä','a').replace(')','')
+            region = 'spl'+selected['name'].split(' - ')[0].split(' (')[1].replace('ä','a').replace(')','')
             league = selected['name'].split(' (')[0].replace(' ','-').lower()
             url = 'https://www.palloliitto.fi/'+region+'/'+league
         else:
-            league = selected['name'].replace('ö','o').replace(' ','-').lower()
+            league = selected['name'].split(' - ')[0].replace('ö','o').replace(' ','-').lower()
             if league == 'miesten-kakkonen':
                 league = 'kakkonen'
             if 'futsal' in league:
@@ -346,7 +392,7 @@ def getStandings():
                 'points': int(x[9])
             })
         standings.append(data)
-
+    
     return jsonify(standings)
 
 if __name__ == '__main__':

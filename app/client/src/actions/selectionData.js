@@ -1,24 +1,16 @@
-export const setFilters = (filters) => {
-    window.localStorage.setItem('filters', JSON.stringify(filters))
+export const setVisibleFilters = (filters) => {
+    window.localStorage.setItem('visibleFilters', JSON.stringify(filters))
     return {
-        type: 'SET_FILTERS',
+        type: 'SET_VISIBLE_FILTERS',
         data: filters
     }
 }
 
-export const setSportsFilters = (sportsFilters) => {
-    window.localStorage.setItem('sportsFilters', JSON.stringify(sportsFilters))
+export const setSelectedFilters = (filters) => {
+    window.localStorage.setItem('selectedFilters', JSON.stringify(filters))
     return {
-        type: 'SET_SPORTS_FILTERS',
-        data: sportsFilters
-    }
-}
-
-export const setFavourites = (favourites) => {
-    window.localStorage.setItem('favourites', JSON.stringify(favourites))
-    return {
-        type: 'SET_FAVOURITES',
-        data: favourites
+        type: 'SET_SELECTED_FILTERS',
+        data: filters
     }
 }
 

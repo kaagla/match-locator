@@ -19,12 +19,18 @@ export default function MatchListItems(props) {
     }
 
     function displayVenue(venue) {
-        let city = props.matches.filter(m => m.venue_name === venue)[0].city
+        let city = props.matches.filter(m => m.venue_name === venue)[0].postoffice
         
         if (venue.includes(city)) {
             return venue
         }
         return venue + ', ' + city
+    }
+
+    function displayLevel(level) {
+        let sport = props.matches.filter(m => m.level === level)[0].sport
+        
+        return sport + ' - ' + level
     }
 
     function isUpcomingMatch(date) {
@@ -55,7 +61,9 @@ export default function MatchListItems(props) {
                 onClick={() => setItemIsOpen(!itemIsOpen)}
             >
                 <div className='matchlist-component--header-name'>
-                    <span>{props.groupbyItem === 'venue_name' ? displayVenue(props.header) : props.header}</span>
+                    <span>
+                        {props.groupbyItem === 'venue_name' ? displayVenue(props.header) : props.groupbyItem === 'level' ? displayLevel(props.header) : props.header}
+                    </span>
                     <span className='matchlist-component--header-count'><CountBadge count={props.matches.length} /></span>
                 </div>
                 <div><i className={itemIsOpen ? 'arrow-up':'arrow-down'}></i></div>

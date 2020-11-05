@@ -1,8 +1,8 @@
 const initialState = []
 
-export const cityReducer = (state = initialState, action) => {
+export const areaReducer = (state = initialState, action) => {
     switch (action.type) {
-        case 'ADD_CITIES':
+        case 'ADD_AREAS':
             return action.data
         default:
             return state

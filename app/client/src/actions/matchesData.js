@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-export const getMatchesData = (dates, filters, sportsFilters) => async dispatch => {
+export const getMatchesData = (dates, filters) => async dispatch => {
 
     dispatch({
       type: 'SET_IS_LOADING',
@@ -19,19 +19,23 @@ export const getMatchesData = (dates, filters, sportsFilters) => async dispatch 
     }
     if (filters.length > 0) {
       filters.map(filter => {
-        data[filter.type] = []
+        if (!data[filter.type]) {
+          data[filter.type] = []
+        }
         data[filter.type].push({ "name": filter.name })
       })
     }
 
+    /*
     if (sportsFilters.length > 0) {
       data['sport'] = []
       sportsFilters.map(sport => data['sport'].push(sport))
     }
+    */
 
     let searchData = {}
     searchData['dates'] = dates
-    searchData['sportsFilters'] = sportsFilters
+    //searchData['sportsFilters'] = sportsFilters
     searchData['filters'] = filters
 
     let selectedItem = null

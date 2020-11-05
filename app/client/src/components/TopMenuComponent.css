@@ -56,7 +56,8 @@
     padding-right: 0.5rem;
 }
 
-.menu-items {
+.menu-items,
+.menu-items-on-close {
     background-color: #f6f5f3;
     position: fixed;
     top: 60px;
@@ -71,6 +72,9 @@
     /*overflow-y: scroll;*/
     color: black;
     border: solid 1px black;
+}
+
+.menu-items {
     -webkit-animation: slide-from-right 0.5s linear;
             animation: slide-from-right 0.5s linear;
 }
@@ -85,6 +89,21 @@
     100% { right: 0; }
 }
 
+.menu-items-on-close {
+    -webkit-animation: slide-to-right 0.5s;
+            animation: slide-to-right 0.5s;
+}
+
+@-webkit-keyframes slide-to-right {
+    0% { right: 0; }
+    100% { right: -500px; }
+}
+
+@keyframes slide-to-right {
+    0% { right: 0; }
+    100% { right: -500px; }
+}
+
 .menu-items-content {
     width: 100%;
     max-height: 85%;
@@ -93,8 +112,10 @@
     padding-bottom: 5rem;
 }
 
-.menu-items-sports-filters {
+.menu-items-filter-group {
     width: 100%;
+    height: -webkit-fit-content;
+    height: -moz-fit-content;
     height: fit-content;
 }
 
@@ -110,37 +131,60 @@
     align-items: center;
 }
 
-.item-box {
+.item-box,
+.item-box-on-close {
     width: 50%;
     min-width: 300px;
     max-height: calc(100vh*0.8);
-    background-color: rgba(255, 255, 255, 1);
+    background-color: #f6f5f3;
     padding-top: 2rem;
     padding-bottom: 2rem;
     overflow-y: auto;
     position: relative;
-    -webkit-animation: slide-from-top 0.5s linear;
-            animation: slide-from-top 0.5s linear;
-    z-index: 99;
+    z-index: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
-@-webkit-keyframes slide-from-top {
-    0% { transform: translateY(-100px); }
-    100% { transform: translateY(0); }
+.item-box {
+    -webkit-animation: show-item-box 0.5s linear;
+            animation: show-item-box 0.5s linear;
 }
 
-@keyframes slide-from-top {
-    0% { transform: translateY(-100px); }
-    100% { transform: translateY(0); }
+@-webkit-keyframes show-item-box {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+@keyframes show-item-box {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+.item-box-on-close {
+    -webkit-animation: hide-item-box 0.5s linear;
+            animation: hide-item-box 0.5s linear;
+}
+
+@-webkit-keyframes hide-item-box {
+    0% { opacity: 1; }
+    100% { opacity: 0; }
+}
+
+@keyframes hide-item-box {
+    0% { opacity: 1; }
+    100% { opacity: 0; }
 }
 
 .item-close {
-    color: black;
-    font-size: 2rem;
+    color: rgba(0, 0, 0, 0.6);
+    font-size: 2.5rem;
     cursor: pointer;
     position: absolute;
     top: 0;
-    right: 5%;
+    right: 1%;
 }
 
 .search-instructions {

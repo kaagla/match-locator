@@ -9,9 +9,9 @@ export const getInitialData = (name) => async dispatch => {
             data: res.data
         })
     }
-    if (name === 'cities') {
+    if (name === 'areas') {
         dispatch({
-            type: 'ADD_CITIES',
+            type: 'ADD_AREAS',
             data: res.data
         })
     }

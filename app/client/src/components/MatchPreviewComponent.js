@@ -57,8 +57,8 @@ export default function MatchPreview(props) {
         data['dates'] = '2019-01-01,' + new Date(y,m,d).toJSON().split('T')[0]
     
         data['team'] = []
-        data['team'].push({ 'name': props.match.home_name + ' - ' + props.match.level })
-        data['team'].push({ 'name': props.match.away_name + ' - ' + props.match.level })
+        data['team'].push({ 'name': props.match.home_name + ' - ' + props.match.level + ' - ' + props.match.sport })
+        data['team'].push({ 'name': props.match.away_name + ' - ' + props.match.level + ' - ' + props.match.sport })
 
         data['include-locations'] = 'false'
 

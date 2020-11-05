@@ -1,46 +1,40 @@
-function getInitialFilters() {
-    if (JSON.parse(window.localStorage.getItem('filters'))) {
-        return JSON.parse(window.localStorage.getItem('filters'))
+function getInitialVisibleFilters() {
+    if (JSON.parse(window.localStorage.getItem('visibleFilters'))) {
+        return JSON.parse(window.localStorage.getItem('visibleFilters'))
+    }
+    return [
+        {'type': 'grandarea', 'name': 'Helsinki-Uusimaa'},
+        {'type': 'grandarea', 'name': 'Etelä-Suomi'},
+        {'type': 'grandarea', 'name': 'Länsi-Suomi'},
+        {'type': 'grandarea', 'name': 'Pohjois- ja Itä-Suomi'},
+        {'type': 'grandarea', 'name': 'Ahvenanmaa'},
+        {'type': 'sport', 'name': 'Jalkapallo'},
+        {'type': 'sport', 'name': 'Futsal'},
+        {'type': 'sport', 'name': 'Koripallo'},
+        {'type': 'sport', 'name': 'Lentopallo'},
+        {'type': 'sport', 'name': 'Käsipallo'}
+    ]
+}
+
+function getInitialSelectedFilters() {
+    if (JSON.parse(window.localStorage.getItem('selectedFilters'))) {
+        return JSON.parse(window.localStorage.getItem('selectedFilters'))
     }
     return []
 }
 
-function getInitialSportsFilters() {
-    if (JSON.parse(window.localStorage.getItem('sportsFilters'))) {
-        return JSON.parse(window.localStorage.getItem('sportsFilters'))
-    }
-    return []
-}
-
-function getInitialFavourites() {
-
-    if (JSON.parse(window.localStorage.getItem('favourites'))) {
-        return JSON.parse(window.localStorage.getItem('favourites'))
-    }
-    return []
-}
-
-export const filtersReducer = (state = getInitialFilters(), action) => {
+export const visibleFiltersReducer = (state = getInitialVisibleFilters(), action) => {
     switch (action.type) {
-        case 'SET_FILTERS':
+        case 'SET_VISIBLE_FILTERS':
             return action.data
         default:
             return state
     }
 }
 
-export const sportsFiltersReducer = (state = getInitialSportsFilters(), action) => {
+export const selectedFiltersReducer = (state = getInitialSelectedFilters(), action) => {
     switch (action.type) {
-        case 'SET_SPORTS_FILTERS':
-            return action.data
-        default:
-            return state
-    }
-}
-
-export const favouritesReducer = (state = getInitialFavourites(), action) => {
-    switch (action.type) {
-        case 'SET_FAVOURITES':
+        case 'SET_SELECTED_FILTERS':
             return action.data
         default:
             return state
