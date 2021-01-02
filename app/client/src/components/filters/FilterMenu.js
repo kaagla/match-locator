@@ -10,8 +10,6 @@ import FilterGroup from './FilterGroup'
 import { displayDates } from '../../services/dateService'
 
 const Wrapper = styled.div`
-    /*background-color: rgba(0,0,0,0.3);*/
-    flex: 1;
     width: 100%;
     max-width: 600px;
     padding-top: 6rem;
@@ -21,9 +19,11 @@ const Wrapper = styled.div`
     align-items: center;
     position: relative;
 
-    ::before, ::after {
-        content: '';
-        margin: auto;
+    @media (orientation: landscape) {
+        ::before, ::after {
+            content: '';
+            margin: auto;
+        }
     }
 `
 

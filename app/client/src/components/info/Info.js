@@ -5,7 +5,6 @@ import { displayDM } from '../../services/dateService'
 import NextMatches from './NextMatches'
 
 const Wrapper = styled.div`
-    flex: 1;
     width: 90%;
     max-width: 600px;
     display: flex;
@@ -13,9 +12,11 @@ const Wrapper = styled.div`
     color: white;
     padding: 2rem;
 
-    ::before, ::after {
-        content: '';
-        margin: auto;
+    @media (orientation: landscape) {
+        ::before, ::after {
+            content: '';
+            margin: auto;
+        }
     }
 `
 

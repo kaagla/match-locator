@@ -177,12 +177,6 @@ export default function NextMatches() {
         }
     }
 
-    /*useEffect(() => {
-        if (data.length > 0) {
-            
-        }
-    }, [])*/
-
     useEffect(() => {
         axios.get('api/nextmatchdays')
         .then(res => {
