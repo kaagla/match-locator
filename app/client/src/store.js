@@ -18,7 +18,10 @@ import { selectedLocationReducer,
          selectedItemReducer, 
          searchConditionsReducer, 
          visibleFiltersReducer, 
-         selectedFiltersReducer } from './reducers/selectionReducer'
+         selectedFiltersReducer,
+         selectedContentReducer } from './reducers/selectionReducer'
+import { standingsItemReducer } from './reducers/standingsReducer'
+import { searchReducer } from './reducers/searchReducer'
 
 const reducer = combineReducers({
     areas: areaReducer,
@@ -38,7 +41,10 @@ const reducer = combineReducers({
     searchConditions: searchConditionsReducer,
     matchesLimitNotification: matchesLimitNotificationReducer,
     visibleFilters: visibleFiltersReducer,
-    selectedFilters: selectedFiltersReducer
+    selectedFilters: selectedFiltersReducer,
+    selectedContent: selectedContentReducer,
+    standingsItem: standingsItemReducer,
+    searchIsActive: searchReducer
 })
 
 export const store = createStore(reducer, applyMiddleware(thunk))

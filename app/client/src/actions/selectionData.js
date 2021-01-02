@@ -20,3 +20,10 @@ export const setSelectedLocation = (item) => {
         data: item
     }
 }
+
+export const setSelectedContent = (content) => {
+    return {
+        type: 'SET_SELECTED_CONTENT',
+        data: content
+    }
+}

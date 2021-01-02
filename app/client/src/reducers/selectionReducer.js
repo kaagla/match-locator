@@ -67,3 +67,12 @@ export const searchConditionsReducer = (state = null, action) => {
             return state
     }
 }
+
+export const selectedContentReducer = (state = 'info', action) => {
+    switch (action.type) {
+        case 'SET_SELECTED_CONTENT':
+            return action.data
+        default:
+            return state
+    }
+}

@@ -3,7 +3,7 @@ const displayD = (date) => {
     return day + '.'
 }
 
-const displayDM = (date) => {
+export const displayDM = (date) => {
     let month = parseInt(date.split('-')[1])
     let day = parseInt(date.split('-')[2])
     return day + '.' + month + '.'

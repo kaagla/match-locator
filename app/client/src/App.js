@@ -1,27 +1,21 @@
 import React, { useEffect } from 'react';
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route
-} from "react-router-dom";
-import { useSelector, useDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { getInitialData } from './actions/intialData'
-import { getMatchesData } from './actions/matchesData'
+import styled from 'styled-components'
 import './App.css';
 
-import Map from './components/MapComponent'
-import TopMenu from './components/TopMenuComponent'
-import ContentMenu from './components/ContentMenuComponent'
-import Content from './components/ContentComponent'
-import Notification from './components/NotificationComponent'
+import ContentNav from './components/layout/ContentNav'
+import Content from './components/layout/Content';
 
-import Matchlist from './components/MatchlistComponent'
-import LocationMatchlist from './components/LocationMatchlistComponent'
-import Standings from './components/StandingsComponent'
+const Container = styled.div`
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`
 
 function App() {
-
-  const { dateFrom, dateTo, selectedFilters, selectedItem, selectedLocation, matchesLimitNotification } = useSelector(state => state)
 
   const dispatch = useDispatch()
 
@@ -30,32 +24,13 @@ function App() {
     dispatch(getInitialData('levels'))
     dispatch(getInitialData('teams'))
     dispatch(getInitialData('info'))
-    dispatch(getMatchesData(dateFrom+','+dateTo, selectedFilters))
   }, []);
 
   return(
-    <div className='App'>
-      <Router>
-        <TopMenu />
-        <Map />
-        <ContentMenu />
-        {matchesLimitNotification && <Notification />}
-        <Switch>
-          <Route
-            exact path='/'
-            render={() => <Content><Matchlist /></Content>} 
-          />
-          <Route
-            exact path='/locationmatchlist'
-            render={() => selectedLocation && <Content><LocationMatchlist /></Content>} 
-          />
-          <Route
-            exact path='/standings'
-            render={() => selectedItem && <Content><Standings /></Content>} 
-          />
-        </Switch>
-      </Router>
-    </div>
+    <Container>
+      <ContentNav />
+      <Content />
+    </Container>
   )
 }
 
