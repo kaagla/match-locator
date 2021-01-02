@@ -395,5 +395,55 @@ def getStandings():
     
     return jsonify(standings)
 
+@app.route('/api/nextmatchdays', methods=['GET'])
+def getNextMatchDays():
+
+    days = 10
+
+    try:
+        days = int(request.args.get('daysahead'))
+    except:
+        pass
+
+    
+    dt = datetime.datetime.now()
+    day = dt.day
+    month = dt.month
+    year = dt.year
+
+    start = datetime.datetime(year,month,day)
+    end = start + datetime.timedelta(days=days,hours=23,minutes=59)
+
+    matchdays = list(db['matches_all'].aggregate([
+        {'$match': {
+        'start_date': {
+            '$gte': start,
+            '$lte': end
+        }
+        }},
+        {'$group': {
+            '_id': {
+                'start_date': '$start_date',
+                'sport': '$sport'
+            },
+            'sportCount': { '$sum': 1 }
+        }},
+        {'$group': {
+            '_id': '$_id.start_date',
+            'sports': { 
+                '$push': { 
+                    'sport': '$_id.sport',
+                    'count': '$sportCount'
+            },
+        },
+        'count': { '$sum': '$sportCount' }
+        }},
+        {'$sort': {
+            '_id': 1,
+        }}
+    ]))
+
+    return jsonify(matchdays)
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=os.getenv('PORT'), debug=False)
