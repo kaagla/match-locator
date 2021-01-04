@@ -1,8 +1,7 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { setItemSearchText } from '../../actions/searchText'
 import styled from 'styled-components'
-import { Search } from '@styled-icons/fa-solid'
 
 const Wrapper = styled.div`
     width: 70%;
@@ -19,8 +18,8 @@ const Wrapper = styled.div`
     padding-bottom: 1rem;
 `
 
-const SearchIcon = styled(Search)`
-    //color: black;
+const SearchIconDiv = styled.div`
+    color: black;
     height: 2rem;
     width: 2rem;
     margin-right: 3rem;
@@ -32,43 +31,21 @@ const SearchInput = styled.input`
     height: 2rem;
 `
 
-const SearchLabel = styled.div`
-    position: absolute;
-    top: 1rem;
-    left: 6rem;
-    color: red;
-`
-
-const SearchItems = styled.div`
-    width: 100%;
-    height: 20rem;
-    position: absolute;
-    top: 5rem;
-    left: 50%;
-    background-color: white;
-`
-
-export default function SearchBar(props) {
+export default function SearchBar() {
 
     const { itemSearchText } = useSelector(state => state)
-    const [isActive, setIsActive] = useState(false)
 
     const dispatch = useDispatch()
 
     function handleText(text) {
-        //setNumItems(20)
         dispatch(setItemSearchText(text))
-    }
-
-    function handleActivity() {
-        if (!isActive) {
-            setIsActive(!isActive)
-        }
     }
 
     return (
         <Wrapper>
-            <SearchIcon />
+            <SearchIconDiv>
+                <i className={"fas fa-search"}></i>
+            </SearchIconDiv>
             <SearchInput
                 id='item-search'
                 type='search'

@@ -41,7 +41,7 @@ const Box = styled.div`
 
 const ScrollBtns = styled.div`
     width: 100%;
-    height: 3rem;
+    height: 4rem;
     display: flex;
     flex-direction: row;
     justify-content: space-around;
@@ -51,8 +51,8 @@ const ScrollBtns = styled.div`
 const ScrollBtn = styled.button`
     border: none;
     outline: none;
-    width: 3rem;
-    height: 3rem;
+    width: 4rem;
+    height: 4rem;
     cursor: pointer;
     background-color: transparent;
     color: white;

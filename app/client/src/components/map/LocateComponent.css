@@ -4,10 +4,7 @@
     top: 10px;
     right: 5%;
     z-index: 99;
-    max-height: 80%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    height: 80%;
 }
 
 .locate-search {
@@ -28,8 +25,7 @@
     color: white;
     background-color: rgba(0, 0, 0, 0.6);
     width: 90%;
-    max-height: 60%;
+    max-height: 70%;
     padding: 1rem;
     overflow-y: auto;
-    /*margin-top: 2rem;*/
 }

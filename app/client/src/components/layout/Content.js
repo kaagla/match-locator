@@ -34,6 +34,7 @@ const ContentItem = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     opacity: ${props => props.opacity};
     transition: all 1s linear;
 
@@ -48,12 +49,7 @@ const ItemBox = styled.div`
     position: relative;
     height: 100%;
     width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    /*justify-content: center;
-    justify-items: center;*/
-    padding-bottom: 3rem;
+    padding-bottom: 10rem;
     overflow-y: scroll;
 
     @media (orientation: landscape) and (max-width: 800px) {

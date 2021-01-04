@@ -15,22 +15,22 @@ const Container = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
     background-color: rgba(0,0,0,0.9);
-    z-index: 99;
+    z-index: 100;
     opacity: ${props => props.opacity};
     transition: all 0.5s ease-out;
 `
 
 const MatchListBox = styled.div`
-    width: 100%;
+    width: 95%;
     max-width: 600px;
-    height: 70%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    /*justify-content: center;*/
+    margin-top: 3rem;
+    margin-bottom: 2rem;
     overflow-y: auto;
+
+    @media (orientation: portrait) {
+        margin-bottom: 7rem;
+    }
 `
 
 export default function LocationMatchlist(props) {

@@ -12,7 +12,6 @@ const Container = styled.div`
     left: 0;
     height: 100%;
     width: 100%;
-    padding-top: 2rem;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -24,9 +23,9 @@ const Container = styled.div`
     color: black;
     transition: all 0.5s ease-out;
 
-    @media (orientation: portrait) {
+    /*@media (orientation: portrait) {
         height: 90vh;
-    }
+    }*/
 `
 
 const SearchBox = styled.div`
@@ -38,7 +37,7 @@ const SearchBox = styled.div`
     align-items: center;
 
     @media (orientation: portrait) {
-        height: 95%;
+        margin-bottom: 7rem;
     }
 `
 

@@ -9,7 +9,6 @@ const Wrapper = styled.div`
     position: fixed;
     height: fit-content;
     top: 50%;
-    bottom: 50%;
     transform: translateY(-50%);
     left: 2%;
     display: flex;

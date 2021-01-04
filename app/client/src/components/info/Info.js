@@ -11,8 +11,11 @@ const Wrapper = styled.div`
     flex-direction: column;
     color: white;
     padding: 2rem;
+    margin-left: auto;
+    margin-right: auto;
 
-    @media (orientation: landscape) {
+    @media (orientation: landscape) and (min-height: 600px) {
+        height: 100%;
         ::before, ::after {
             content: '';
             margin: auto;

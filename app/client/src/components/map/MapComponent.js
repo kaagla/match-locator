@@ -1,7 +1,5 @@
 import React, { useState } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
-//import { useHistory, Link } from 'react-router-dom'
-//import { setSelectedLocation } from '../../actions/selectionData'
+import { useSelector } from 'react-redux'
 import { Map as LeafletMap, TileLayer, Marker, Popup, ZoomControl } from 'react-leaflet';
 import L from 'leaflet';
 import './MapComponent.css';
@@ -81,9 +79,6 @@ export default function Map() {
     const [ selectedSports, setSelectedSports ] = useState(['Jalkapallo','Futsal','Koripallo','Lentopallo','Käsipallo'])
     const [selectedLocation, setSelectedLocation] = useState(null)
 
-    //const history = useHistory()
-    const dispatch = useDispatch()
-
     function getZoom() {
         let zoom;
         if (mapCenter.city !== 'Suomi') {
@@ -98,14 +93,8 @@ export default function Map() {
         return zoom
     }
 
-    function handleLocationPopup(location) {
-        //dispatch(setSelectedLocation(location))
-        //history.push('/locationmatchlist', location)
-    }
-
     function goToLocationDetails(location) {
         setSelectedLocation(location)
-        //document.getElementById('content-menu').scrollIntoView({behavior: "smooth", block: "start"})
     }
 
     function closeLocationDetails() {
@@ -183,7 +172,6 @@ export default function Map() {
                     key={location._id}
                     position={[location.lat,location.lon]}
                     opacity={0.9}
-                    onclick={() => handleLocationPopup(location)}
                     icon={getMarker(location.sport)}
                 >
                     <Popup className='request-popup'>

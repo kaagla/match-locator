@@ -12,7 +12,6 @@ const Container = styled.div`
     left: 0;
     height: 100%;
     width: 100%;
-    padding-top: 2rem;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -39,12 +38,15 @@ const Error = styled.div`
 `
 
 const Content = styled.div`
-    padding-bottom: 5rem;
     justify-self: flex-start;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+
+    @media (orientation: portrait) {
+        margin-bottom: 7rem;
+    }
 `
 
 const GroupSelector = styled.div`

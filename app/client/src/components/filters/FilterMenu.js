@@ -12,14 +12,16 @@ import { displayDates } from '../../services/dateService'
 const Wrapper = styled.div`
     width: 100%;
     max-width: 600px;
-    padding-top: 6rem;
-    padding-bottom: 6rem;
     display: flex;
     flex-direction: column;
     align-items: center;
     position: relative;
+    padding-top: 1rem;
+    margin-left: auto;
+    margin-right: auto;
 
-    @media (orientation: landscape) {
+    @media (orientation: landscape) and (min-height: 600px) {
+        height: 100%;
         ::before, ::after {
             content: '';
             margin: auto;

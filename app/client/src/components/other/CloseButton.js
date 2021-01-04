@@ -7,6 +7,7 @@ const CloseDiv = styled.div`
     height: 4rem;
     width: 100%;
     max-width: 600px;
+    margin-top: 2rem;
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
