@@ -1,5 +1,6 @@
 from flask import Flask, jsonify, request
 from flask_cors import CORS
+from flask_caching import Cache
 import numpy as np
 import pandas as pd
 import requests
@@ -10,19 +11,36 @@ from dotenv import load_dotenv
 import os
 import datetime
 
-app = Flask(__name__, static_folder='./client/build', static_url_path='/')
-CORS(app)
-
 load_dotenv()
 
 client = pymongo.MongoClient(os.getenv("MONGODB_CLIENT"))
 db = client["mldb"]
+
+cacheConfig = {
+    "DEBUG": True,
+    "CACHE_TYPE": "simple",
+    "CACHE_DEFAULT_TIMEOUT": 120
+}
+
+def getCacheTimeout():
+    dt = datetime.datetime.now()
+    tomorrow = dt + datetime.timedelta(days=1)
+    
+    return (datetime.datetime.combine(tomorrow, datetime.time.min) - dt).seconds
+
+
+app = Flask(__name__, static_folder='./client/build', static_url_path='/')
+CORS(app)
+
+app.config.from_mapping(cacheConfig)
+cache = Cache(app)
 
 @app.route('/')
 def index():
     return app.send_static_file('index.html')
 
 @app.route('/api/info', methods=['GET'])
+@cache.cached(timeout=getCacheTimeout())
 def getInfo():
     info = list(db['info_all'].find({},{'_id': 0}))
     return jsonify(info)
@@ -82,6 +100,7 @@ def getAreaCoordinates():
     return jsonify([])
 
 @app.route('/api/areas')
+@cache.cached(timeout=getCacheTimeout())
 def getAreas():
     
     municipalities = [
@@ -214,6 +233,7 @@ def getMatches():
     return jsonify(data)
 
 @app.route('/api/teams')
+@cache.cached(timeout=getCacheTimeout())
 def getTeams():
     
     teams = [
@@ -246,6 +266,7 @@ def getVenues():
     return jsonify(venues)
 
 @app.route('/api/levels')
+@cache.cached(timeout=getCacheTimeout())
 def getLevels():
 
     levels = [
@@ -396,6 +417,7 @@ def getStandings():
     return jsonify(standings)
 
 @app.route('/api/nextmatchdays', methods=['GET'])
+@cache.cached(timeout=getCacheTimeout())
 def getNextMatchDays():
 
     days = 10
@@ -428,6 +450,10 @@ def getNextMatchDays():
             },
             'sportCount': { '$sum': 1 }
         }},
+        {'$sort': {
+            'sportCount': -1,
+            '_id.sport': 1
+        }},
         {'$group': {
             '_id': '$_id.start_date',
             'sports': { 
@@ -444,6 +470,15 @@ def getNextMatchDays():
     ]))
 
     return jsonify(matchdays)
+
+@app.route('/admin/clearcache', methods=['GET'])
+def clearCache():
+
+    if request.args['key'] == os.getenv("CACHE_KEY"):
+        cache.clear()
+        return 'OK'
+    else:
+        return 'NOT ALLOWED'
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=os.getenv('PORT'), debug=False)
